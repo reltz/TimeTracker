@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MockAdapter } from 'src/app/Adapters/mock-adapter.service';
+import { TaskListStore } from './task-list-store';
 import { ITaskList } from './taskListModel';
 
 @Injectable({
@@ -8,9 +9,9 @@ import { ITaskList } from './taskListModel';
 export class TaskListService
 {
 	constructor(
+		private store: TaskListStore,
 		private api: MockAdapter,
-	)
-	{ }
+	) { }
 
 	public loadAll()
 	{
@@ -30,5 +31,10 @@ export class TaskListService
 	public delete(id: string)
 	{
 		this.api.delete(id);
+	}
+
+	public setActive(id: string)
+	{
+		this.store.update({ active: id }, null);
 	}
 }

@@ -1,12 +1,16 @@
-import { Store, StoreConfig, EntityStore, EntityState } from '@datorama/akita';
+import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { ITaskList } from './taskListModel';
 
 export interface TaskListState extends EntityState<ITaskList>
-{ }
+{
+	active: '';
+}
 
 export function createInitialState(): TaskListState
 {
-	return {};
+	return {
+		active: '',
+	};
 }
 
 @StoreConfig({ name: 'taskList' })
