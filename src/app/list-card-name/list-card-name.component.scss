@@ -1,4 +1,11 @@
 .mat-card {
-    width: 25%;
     margin-top: 15px;
+}
+
+.mat-card:hover {
+	background-color: rgb(170, 41, 63);
+}
+
+.active {
+	background-color: rgb(170, 41, 63);
 }

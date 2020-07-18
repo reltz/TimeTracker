@@ -1,0 +1,24 @@
+<mat-card>
+	<mat-card-header>
+		<!-- {{(currentList$ | async).title }} -->
+		{{ formGroup.controls['name'].value }}
+	</mat-card-header>
+	<mat-card-content>
+		<div *ngFor="let item of controlsArraySize">
+			<mat-checkbox></mat-checkbox>
+			<mat-form-field appearance="standard">
+				<input matInput placeholder="Input" [formControl]="contentFormGroup.controls[item]">
+			</mat-form-field>
+		</div>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button (click)="addItem()">
+			Add item
+			<mat-icon>add_circle_outline</mat-icon>
+		</button>
+		<button mat-raised-button (click)="saveList()">
+			Save
+			<mat-icon>save</mat-icon>
+		</button>
+	</mat-card-actions>
+</mat-card>

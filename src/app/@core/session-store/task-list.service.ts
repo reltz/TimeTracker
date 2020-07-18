@@ -1,6 +1,7 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { MockAdapter } from 'src/app/Adapters/mock-adapter.service';
-import { TaskListStore } from './task-list-store';
+import { TaskListState, TaskListStore } from './task-list-store';
 import { ITaskList } from './taskListModel';
 
 @Injectable({
@@ -35,6 +36,6 @@ export class TaskListService
 
 	public setActive(id: string)
 	{
-		this.store.update({ active: id }, null);
+		this.store.update({ active: id });
 	}
 }

@@ -2,16 +2,20 @@
 	<div class="title">
 		{{title}}
 	</div>
-	<div class="list-of-lists">
-		<div *ngFor="let list of (allLists$ | async)">
-			<app-list-card-name [id]=list.id></app-list-card-name>
+	<div class="wrapper">
+		<div class="list-of-lists">
+			<div *ngFor="let list of (allLists$ | async)">
+				<app-list-card-name [id]=list.id></app-list-card-name>
+			</div>
+
+			<button mat-raised-button>
+				Add new List
+				<mat-icon>add_circle_outline</mat-icon>
+			</button>
 		</div>
 
-		<button mat-raised-button>
-			Add new List
-			<mat-icon>add_circle_outline</mat-icon>
-		</button>
+		<div class="list-view">
+			<app-list-view></app-list-view>
+		</div>
 	</div>
-
-	<router-outlet></router-outlet>
 </div>

@@ -23,6 +23,7 @@ export class AppComponent implements OnInit
 	public ngOnInit()
 	{
 		this.service.loadAll();
+		this.service.setActive("0");
 		this.allLists$ = this.query.selectAll();
 		this.title = 'TITLE';
 	}

@@ -3,7 +3,7 @@ import { ITaskList } from './taskListModel';
 
 export interface TaskListState extends EntityState<ITaskList>
 {
-	active: '';
+	active: string;
 }
 
 export function createInitialState(): TaskListState
