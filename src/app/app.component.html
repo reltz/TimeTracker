@@ -6,8 +6,12 @@
 		<div *ngFor="let list of (allLists$ | async)">
 			<app-list-card-name [id]=list.id></app-list-card-name>
 		</div>
+
+		<button mat-raised-button>
+			Add new List
+			<mat-icon>add_circle_outline</mat-icon>
+		</button>
 	</div>
 
 	<router-outlet></router-outlet>
-
 </div>

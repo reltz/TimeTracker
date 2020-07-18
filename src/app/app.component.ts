@@ -22,14 +22,8 @@ export class AppComponent implements OnInit
 	}
 	public ngOnInit()
 	{
+		this.service.loadAll();
 		this.allLists$ = this.query.selectAll();
 		this.title = 'TITLE';
-		const newList: ITaskList = {
-			id: '123',
-			title: 'Test Title',
-			content: ['item1 ', 'item 2'],
-		};
-
-		this.service.upsert(newList);
 	}
 }
