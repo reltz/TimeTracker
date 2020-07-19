@@ -29,7 +29,7 @@ export class AppComponent implements OnInit
 		this.service.loadAll();
 		this.service.setActive("0");
 		this.allLists$ = this.query.selectAll();
-		this.title = 'TITLE';
+		this.title = 'Rod\'s TaskList App';
 	}
 
 	public addNewList(): void
