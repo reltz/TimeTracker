@@ -9,6 +9,9 @@
 			<mat-form-field appearance="standard">
 				<input matInput placeholder="Input" [formControl]="contentFormGroup.controls[item]">
 			</mat-form-field>
+			<button mat-icon-button (click)="deleteItem(item)">
+				<mat-icon>delete</mat-icon>
+			</button>
 		</div>
 	</mat-card-content>
 	<mat-card-actions>

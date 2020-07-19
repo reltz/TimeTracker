@@ -20,6 +20,7 @@ export class MockAdapter
 		};
 	}
 
+	// api call to retrive DB records
 	public loadAll()
 	{
 		for (let i = 0; i < 5; i++)
