@@ -1,5 +1,6 @@
 .mat-card {
-    margin-top: 15px;
+	margin-top: 15px;
+	align-content: flex-start;
 }
 
 .mat-card:hover {
@@ -8,4 +9,9 @@
 
 .active {
 	background-color: rgb(170, 41, 63);
+}
+
+.mat-icon-button {
+	// margin-left: 50%;
+	text-align: right;
 }

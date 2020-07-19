@@ -8,14 +8,14 @@
 				<app-list-card-name [id]=list.id></app-list-card-name>
 			</div>
 
-			<button mat-raised-button>
+			<button mat-raised-button (click)="addNewList()">
 				Add new List
 				<mat-icon>add_circle_outline</mat-icon>
 			</button>
 		</div>
 
 		<div class="list-view">
-			<app-list-view></app-list-view>
+			<app-list-view *ngIf="isThereActive$ | async"></app-list-view>
 		</div>
 	</div>
 </div>

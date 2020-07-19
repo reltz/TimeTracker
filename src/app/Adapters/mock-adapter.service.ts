@@ -23,7 +23,7 @@ export class MockAdapter
 	// api call to retrive DB records
 	public loadAll()
 	{
-		for (let i = 0; i < 5; i++)
+		for (let i = 0; i < 2; i++)
 		{
 			this.store.upsert(i.toString(), this.generateFakeList(i.toString(), 'List #' + i, ['item 1', 'item 2', 'item 3']));
 		}

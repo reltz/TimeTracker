@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { filter, takeWhile, tap } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map, takeWhile, tap } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TaskListQuery } from '../@core/session-store/task-list-query';
 import { TaskListService } from '../@core/session-store/task-list.service';
@@ -39,7 +39,8 @@ export class ListViewComponent implements OnInit, OnDestroy
 		this.currentList$ = this.query.activeList$;
 		this.controlsArraySize = [];
 
-		this.currentList$.pipe(
+		combineLatest(this.currentList$, this.query.isThereActive$).pipe(
+			filter(([cur, active]) => !!cur && !!active),
 			takeWhile(() => this.isAlive),
 			tap(() =>
 			{
@@ -47,6 +48,7 @@ export class ListViewComponent implements OnInit, OnDestroy
 				this.contentFormGroup = new FormGroup({});
 				this.controlsArraySize = [];
 			}),
+			map(([cur, active]) => cur),
 		).subscribe(values =>
 		{
 			this.formGroup.addControl('name', new FormControl(values.title));
@@ -72,7 +74,6 @@ export class ListViewComponent implements OnInit, OnDestroy
 		const id = v4();
 		this.contentFormGroup.addControl(id, new FormControl(''));
 		this.controlsArraySize.push(id);
-		console.warn('size of controls is ', this.contentFormGroup.controls);
 	}
 
 	public deleteItem(itemId: string): void

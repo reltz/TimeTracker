@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { filter, map, takeWhile } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map, takeWhile, tap } from 'rxjs/operators';
 import { TaskListQuery } from '../@core/session-store/task-list-query';
 import { TaskListService } from '../@core/session-store/task-list.service';
 
@@ -30,9 +30,11 @@ export class ListCardNameComponent implements OnInit, OnDestroy
 				map(list => list.title),
 			);
 
-		this.query.activeList$
+		combineLatest(this.query.activeList$, this.query.isThereActive$)
 			.pipe(
 				takeWhile(() => this.isAlive),
+				filter(([curr, active]) => !!active),
+				map(([curr, active]) => curr),
 			).subscribe(active =>
 			{
 				active.id === this.id
@@ -43,13 +45,20 @@ export class ListCardNameComponent implements OnInit, OnDestroy
 
 	public clickHandler()
 	{
-		// console.warn('clicked the card with id: ', this.id);
 		this.svc.setActive(this.id);
+	}
+
+	public deleteList()
+	{
+		if (this.isActiveOne)
+		{
+			this.svc.unsetActive();
+		}
+		this.svc.delete(this.id);
 	}
 
 	public ngOnDestroy()
 	{
 		this.isAlive = false;
 	}
-
 }

@@ -22,6 +22,7 @@ export class TaskListService
 	public upsert(taskList: ITaskList)
 	{
 		this.api.upsert(taskList);
+		this.setActive(taskList.id);
 	}
 
 	public update(taskList: Partial<ITaskList>)
@@ -37,5 +38,10 @@ export class TaskListService
 	public setActive(id: string)
 	{
 		this.store.update({ active: id });
+	}
+
+	public unsetActive()
+	{
+		this.store.update({ active: '' });
 	}
 }
