@@ -18,6 +18,7 @@ export class ListViewComponent implements OnInit, OnDestroy
 	public formGroup: FormGroup;
 	public contentFormGroup: FormGroup;
 	private isAlive = true;
+	public isEditing: boolean;
 	public controlsArraySize: string[];
 
 	constructor(
@@ -86,7 +87,14 @@ export class ListViewComponent implements OnInit, OnDestroy
 	{
 		const id = this.formGroup.get('id').value;
 		const content = this.mapFormGroupToListContent(this.contentFormGroup);
-		this.svc.update({ id, content });
+		this.svc.update({ id, content, title: this.formGroup.get('name').value });
+		this.isEditing = false;
+	}
+
+	public editName()
+	{
+		this.isEditing = true;
+
 	}
 
 	private mapFormGroupToListContent(formGroup: FormGroup, itemIdToDelete?: string): string[]

@@ -1,7 +1,15 @@
 <mat-card>
 	<mat-card-header>
 		<!-- {{(currentList$ | async).title }} -->
-		{{ formGroup.controls['name'].value }}
+		<span *ngIf="!isEditing">{{ formGroup.controls['name'].value }}
+			<button mat-icon-button (click)="editName()">
+				<mat-icon>edit</mat-icon>
+			</button>
+		</span>
+		<span *ngIf="isEditing">
+			<input matInput placeholder="Input" [formControl]="formGroup.controls.name">
+		</span>
+
 	</mat-card-header>
 	<mat-card-content>
 		<div *ngFor="let item of controlsArraySize">
