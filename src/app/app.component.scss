@@ -1,6 +1,8 @@
+@import '../defaults.scss';
+
 .title {
 	font-size: 2em;
-	color: rgb(170, 41, 63);
+	color: $app-accent;
 }
 
 .wrapper {
@@ -15,7 +17,7 @@
 
 .app {
 	margin: 40px;
-	background-color: #a19842a4;
+	background-color: $app-primary;
 	height: 100vh;
 	padding: 25px;
 }
@@ -26,5 +28,6 @@
 
 .list-view {
 	margin-left: 200px;
+	margin-top: 35px;
 	width: 40%;
 }

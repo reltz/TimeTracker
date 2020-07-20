@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { entitiesToArray, entitiesToMap } from '@datorama/akita';
 import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TaskListQuery } from './@core/session-store/task-list-query';
 import { TaskListService } from './@core/session-store/task-list.service';
@@ -27,9 +28,14 @@ export class AppComponent implements OnInit
 	{
 		this.isThereActive$ = this.query.isThereActive$;
 		this.service.loadAll();
-		this.service.setActive("0");
 		this.allLists$ = this.query.selectAll();
 		this.title = 'Rod\'s TaskList App';
+		this.query.select()
+			.pipe(
+				take(1),
+				map(state => state.ids[0]),
+				filter(ent => !!ent),
+			).subscribe(id => this.service.setActive(id));
 	}
 
 	public addNewList(): void

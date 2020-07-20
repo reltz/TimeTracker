@@ -1,8 +1,12 @@
 <mat-card (click)="clickHandler()" [ngClass]="isActiveOne ? 'active' : ''">
 	<mat-card-content>
-		{{listName$ | async}}
-		<button mat-icon-button (click)="deleteList()">
-			<mat-icon>delete</mat-icon>
-		</button>
+		<div class="list-name-wrapper">
+			<span class="list-name">
+				{{listName$ | async}}
+			</span>
+			<button mat-icon-button (click)="deleteList()">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</div>
 	</mat-card-content>
 </mat-card>

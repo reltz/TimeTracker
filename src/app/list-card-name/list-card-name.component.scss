@@ -1,17 +1,27 @@
+@import '../../defaults.scss';
+
 .mat-card {
 	margin-top: 15px;
 	align-content: flex-start;
 }
 
 .mat-card:hover {
-	background-color: rgb(170, 41, 63);
+	background-color: $app-accent;
+	color: white;
 }
 
 .active {
-	background-color: rgb(170, 41, 63);
+	background-color: $app-accent;
+	color: white;
+}
+
+.list-name-wrapper {
+	display: flex;
+	align-items: center;
+	height: 30px;
 }
 
 .mat-icon-button {
-	// margin-left: 50%;
-	text-align: right;
+	margin-right: 0;
+	margin-left: auto;
 }

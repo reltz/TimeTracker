@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Form, FormControl, FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, takeWhile, tap } from 'rxjs/operators';
+import { filter, map, takeWhile, tap, timestamp } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TaskListQuery } from '../@core/session-store/task-list-query';
 import { TaskListService } from '../@core/session-store/task-list.service';
@@ -12,27 +12,27 @@ import { ITaskList } from './../@core/session-store/taskListModel';
 	templateUrl: './list-view.component.html',
 	styleUrls: ['./list-view.component.scss'],
 })
-export class ListViewComponent implements OnInit, OnDestroy
+export class ListViewComponent implements OnInit, OnDestroy, AfterViewInit
 {
+	@ViewChild('focusTitle') public title: ElementRef;
 	public currentList$: Observable<ITaskList>;
 	public formGroup: FormGroup;
 	public contentFormGroup: FormGroup;
 	private isAlive = true;
-	public isEditing: boolean;
 	public controlsArraySize: string[];
 
 	constructor(
 		private query: TaskListQuery,
 		private svc: TaskListService,
 	)
-	{
-
-	}
+	{ }
 
 	public ngOnInit(): void
 	{
 		this.contentFormGroup = new FormGroup({});
 		this.formGroup = new FormGroup({
+			id: new FormControl(''),
+			name: new FormControl(''),
 			content: this.contentFormGroup,
 		});
 
@@ -44,15 +44,23 @@ export class ListViewComponent implements OnInit, OnDestroy
 			takeWhile(() => this.isAlive),
 			tap(() =>
 			{
-				this.formGroup = new FormGroup({});
 				this.contentFormGroup = new FormGroup({});
 				this.controlsArraySize = [];
 			}),
 			map(([cur, active]) => cur),
 		).subscribe(values =>
 		{
-			this.formGroup.addControl('name', new FormControl(values.title));
-			this.formGroup.addControl('id', new FormControl(values.id));
+			if (this.formGroup.controls.id.value === values.id)
+			{
+				this.formGroup.markAsPristine();
+			}
+			else
+			{
+				this.formGroup.controls.id.setValue(values.id);
+				this.formGroup.controls.name.setValue(values.title);
+			}
+
+			this.formGroup.controls.name.setValue(values.title);
 			values.content.forEach(item =>
 			{
 				this.contentFormGroup.addControl(v4(), new FormControl(item));
@@ -62,6 +70,19 @@ export class ListViewComponent implements OnInit, OnDestroy
 				this.controlsArraySize.push(item);
 			});
 		});
+	}
+
+	public ngAfterViewInit()
+	{
+		this.formGroup.controls.id.valueChanges
+			.pipe(
+				takeWhile(() => this.isAlive),
+			)
+			.subscribe(() =>
+			{
+				this.title.nativeElement.focus();
+				this.title.nativeElement.select();
+			});
 	}
 
 	public ngOnDestroy()
@@ -89,13 +110,6 @@ export class ListViewComponent implements OnInit, OnDestroy
 		const id = this.formGroup.get('id').value;
 		const content = this.mapFormGroupToListContent(this.contentFormGroup);
 		this.svc.update({ id, content, title: this.formGroup.get('name').value });
-		this.isEditing = false;
-	}
-
-	public editName()
-	{
-		this.isEditing = true;
-
 	}
 
 	private mapFormGroupToListContent(formGroup: FormGroup, itemIdToDelete?: string): string[]
