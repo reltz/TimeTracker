@@ -16,7 +16,6 @@ export class TaskListQuery extends QueryEntity<TaskListState> {
 	public activeList$: Observable<ITaskList> = this.select()
 		.pipe(
 			map(state => state.active),
-			tap(active => console.info('active is ', active)),
 			filter(active => active !== ''),
 			switchMap(id => this.selectEntity(id)),
 		);
