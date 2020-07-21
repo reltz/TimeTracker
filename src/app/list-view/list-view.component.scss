@@ -1,3 +1,5 @@
+@import '../../defaults.scss';
+
 .mat-card-header {
 	font-size: 2em;
 	margin-bottom: 20px;
@@ -27,4 +29,22 @@
 
 .mat-icon {
 	margin-right: 10px;
+}
+
+@media (max-width: $breakpoint-phone) {
+	.mat-icon {
+		margin-right: 0px;
+	}
+	.mat-form-field {
+		width: 30vw;
+	}
+
+	.mat-raised-button {
+		width: 10px;
+		overflow: hidden;
+	}
+
+	.hide-in-mobile {
+		display: none;
+	}
 }

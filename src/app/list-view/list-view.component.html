@@ -17,11 +17,11 @@
 	</mat-card-content>
 	<mat-card-actions>
 		<button mat-raised-button (click)="addItem()">
-			Add item
+			<span class="hide-in-mobile">Add item</span>
 			<mat-icon>add_circle_outline</mat-icon>
 		</button>
 		<button mat-raised-button (click)="saveList()" [disabled]="formGroup.pristine && contentFormGroup.pristine">
-			Save
+			<span class="hide-in-mobile">Save</span>
 			<mat-icon>save</mat-icon>
 		</button>
 	</mat-card-actions>
