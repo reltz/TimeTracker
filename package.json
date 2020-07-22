@@ -8,7 +8,7 @@
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
-		"build-gh": "npx ng build --prod --base-href",
+		"build-page": "npx ng build --prod --base-href",
 		"push-page": "npx ngh"
 	},
 	"private": true,
