@@ -44,7 +44,9 @@ export class MockAdapter
 	public update(taskList: Partial<ITaskList>): void
 	{
 		const allDb = this.getLocalStorageObject();
-		allDb[taskList.id] = taskList;
+
+		if (taskList.title) { allDb[taskList.id].title = taskList.title; }
+		if (taskList.content) { allDb[taskList.id].content = taskList.content; }
 		this.mapAndSetLocalStorage(allDb);
 	}
 

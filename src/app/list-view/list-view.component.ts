@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Form, FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, takeWhile, tap, timestamp } from 'rxjs/operators';
 import { v4 } from 'uuid';
@@ -12,7 +12,7 @@ import { ITaskList } from './../@core/session-store/taskListModel';
 	templateUrl: './list-view.component.html',
 	styleUrls: ['./list-view.component.scss'],
 })
-export class ListViewComponent implements OnInit, OnDestroy, AfterViewInit
+export class ListViewComponent implements OnInit, OnDestroy
 {
 	@ViewChild('focusTitle') public title: ElementRef;
 	public currentList$: Observable<ITaskList>;
@@ -70,19 +70,6 @@ export class ListViewComponent implements OnInit, OnDestroy, AfterViewInit
 				this.controlsArraySize.push(item);
 			});
 		});
-	}
-
-	public ngAfterViewInit()
-	{
-		this.formGroup.controls.id.valueChanges
-			.pipe(
-				takeWhile(() => this.isAlive),
-			)
-			.subscribe(() =>
-			{
-				this.title.nativeElement.focus();
-				this.title.nativeElement.select();
-			});
 	}
 
 	public ngOnDestroy()
