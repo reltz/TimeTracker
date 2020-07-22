@@ -8,9 +8,15 @@
 	<mat-card-content>
 		<div class="wrapper">
 			<div class="list-of-lists">
-				<div *ngFor="let list of (allLists$ | async)">
-					<app-list-card-name [id]=list.id></app-list-card-name>
+				<button class="burger-menu" mat-icon-button (click)="toogleList()">
+					<mat-icon>menu</mat-icon>
+				</button>
+				<div [ngClass]="!hideList ? 'hideList' : ''">
+					<div *ngFor="let list of (allLists$ | async)">
+						<app-list-card-name mat-menu-item [id]=list.id></app-list-card-name>
+					</div>
 				</div>
+
 
 				<button mat-raised-button (click)="addNewList()">
 					Add new List

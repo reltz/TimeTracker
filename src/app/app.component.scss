@@ -31,6 +31,9 @@
 	margin-top: 35px;
 	width: 55%;
 }
+.burger-menu {
+	display: none;
+}
 
 @media (max-width: $breakpoint-phone) {
 	.app {
@@ -62,5 +65,22 @@
 
 	.title {
 		font-size: 1.5em;
+	}
+
+	.hideList {
+		display: none;
+	}
+
+	.burger-menu {
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+	}
+
+	.mat-raised-button {
+		margin-top: 30px;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
 	}
 }

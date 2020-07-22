@@ -15,6 +15,7 @@ import { ITaskList } from './@core/session-store/taskListModel';
 export class AppComponent implements OnInit
 {
 	public title: string;
+	public hideList: boolean;
 	public allLists$: Observable<ITaskList[]>;
 	public isThereActive$: Observable<boolean>;
 	constructor(
@@ -45,5 +46,10 @@ export class AppComponent implements OnInit
 			id: v4(),
 			content: [],
 		});
+	}
+
+	public toogleList()
+	{
+		this.hideList = !this.hideList;
 	}
 }
