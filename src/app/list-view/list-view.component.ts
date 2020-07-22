@@ -99,6 +99,11 @@ export class ListViewComponent implements OnInit, OnDestroy
 		this.svc.update({ id, content, title: this.formGroup.get('name').value });
 	}
 
+	public selectAllText()
+	{
+		this.title.nativeElement.select();
+	}
+
 	private mapFormGroupToListContent(formGroup: FormGroup, itemIdToDelete?: string): string[]
 	{
 		const content: string[] = [];

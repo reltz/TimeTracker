@@ -1,13 +1,13 @@
 <mat-card>
 	<mat-card-header>
-		<input matInput #focusTitle [formControl]="formGroup.controls.name">
+		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
 	</mat-card-header>
 	<mat-card-content>
 		<div *ngFor="let item of controlsArraySize" class="list-items-wrapper">
 			<!-- <mat-checkbox></mat-checkbox> -->
 			<mat-icon>check_circle_outline</mat-icon>
 			<mat-form-field appearance="standard">
-				<input matInput placeholder="Input" [formControl]="contentFormGroup.controls[item]">
+				<input matInput placeholder="New Item" [formControl]="contentFormGroup.controls[item]">
 			</mat-form-field>
 			<button mat-icon-button (click)="deleteItem(item)">
 				<mat-icon>delete</mat-icon>
