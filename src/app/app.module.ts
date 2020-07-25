@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListCardNameComponent } from './list-card-name/list-card-name.component';
 import { ListViewComponent } from './list-view/list-view.component';
+import { BackupRestoreService } from './services/backup-restore.service';
 
 const matModules = [
 	MatCardModule,
@@ -44,6 +45,7 @@ const matModules = [
 		TaskListStore,
 		TaskListQuery,
 		MockAdapter,
+		BackupRestoreService,
 	],
 	bootstrap: [AppComponent],
 })

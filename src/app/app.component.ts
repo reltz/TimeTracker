@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { entitiesToArray, entitiesToMap } from '@datorama/akita';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TaskListQuery } from './@core/session-store/task-list-query';
 import { TaskListService } from './@core/session-store/task-list.service';
 import { ITaskList } from './@core/session-store/taskListModel';
+import { BackupRestoreService } from './services/backup-restore.service';
 
 @Component({
 	selector: 'app-root',
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit
 	constructor(
 		private service: TaskListService,
 		private query: TaskListQuery,
+		private backupRestore: BackupRestoreService,
 	)
 	{
 
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit
 				map(state => state.ids[0]),
 				filter(ent => !!ent),
 			).subscribe(id => this.service.setActive(id));
+
 	}
 
 	public addNewList(): void
@@ -48,8 +50,18 @@ export class AppComponent implements OnInit
 		});
 	}
 
+	public backupLists()
+	{
+		this.backupRestore.downloadBackup();
+	}
+
 	public toogleList()
 	{
 		this.hideList = !this.hideList;
+	}
+
+	public download()
+	{
+		open(this.backupRestore.downloadBackup(), "download");
 	}
 }
