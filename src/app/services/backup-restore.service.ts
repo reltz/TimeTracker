@@ -42,7 +42,6 @@ export class BackupRestoreService
 	{
 		if (webkitURL)
 		{
-			console.warn('webkit!!');
 			if (this.fileUrl)
 			{
 				webkitURL.revokeObjectURL(this.fileUrl);
@@ -50,7 +49,6 @@ export class BackupRestoreService
 			return webkitURL.createObjectURL(file);
 		} else if (URL && URL.createObjectURL)
 		{
-			console.warn('NO WEBKIT');
 			if (this.fileUrl)
 			{
 				URL.revokeObjectURL(this.fileUrl);
