@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { MockAdapter } from '../Adapters/mock-adapter.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class BackupRestoreService
 {
+	constructor(
+		protected readonly api: MockAdapter,
+	) { }
 	private fileUrl: any;
 	private readonly localDBName: string = 'RodTaskListApp';
 
@@ -15,6 +19,12 @@ export class BackupRestoreService
 
 		this.fileUrl = this.createObjectURL(blob);
 		return this.fileUrl;
+	}
+
+	public restore(content: string)
+	{
+		console.warn('restoring: ', content);
+		this.api.restoreData(content);
 	}
 
 	private createObjectURL(file)

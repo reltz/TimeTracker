@@ -58,6 +58,12 @@ export class MockAdapter
 		this.mapAndSetLocalStorage(allDb);
 	}
 
+	public restoreData(data: string): void
+	{
+		localStorage.setItem(this.localDBName, data);
+		this.loadAll();
+	}
+
 	private getLocalStorageObject(): {}
 	{
 		return JSON.parse(localStorage.getItem(this.localDBName));

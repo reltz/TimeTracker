@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +17,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListCardNameComponent } from './list-card-name/list-card-name.component';
 import { ListViewComponent } from './list-view/list-view.component';
+import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
+import { UtilityService } from './services/utility.service';
 
 const matModules = [
 	MatCardModule,
@@ -25,6 +28,7 @@ const matModules = [
 	MatCheckboxModule,
 	MatFormFieldModule,
 	MatInputModule,
+	MatDialogModule,
 ];
 
 @NgModule({
@@ -32,6 +36,7 @@ const matModules = [
 		AppComponent,
 		ListCardNameComponent,
 		ListViewComponent,
+		RestoreDialogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -41,6 +46,7 @@ const matModules = [
 		...matModules,
 	],
 	providers: [
+		UtilityService,
 		TaskListService,
 		TaskListStore,
 		TaskListQuery,
