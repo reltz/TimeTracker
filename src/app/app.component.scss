@@ -35,6 +35,10 @@
 	display: none;
 }
 
+.header-buttons {
+	margin-top: -10px;
+}
+
 @media (max-width: $breakpoint-phone) {
 	.app {
 		width: 80vw;
