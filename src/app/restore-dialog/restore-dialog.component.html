@@ -13,6 +13,7 @@
 
 <div mat-dialog-actions>
 	<button mat-raised-button
+			[disabled]="!fileContent"
 			(click)="restore()">Restore</button>
 
 	<button mat-flat-button

@@ -6,6 +6,7 @@ import { MockAdapter } from '../Adapters/mock-adapter.service';
 })
 export class BackupRestoreService
 {
+	private fileIdentifier: string = 'RodTaskList';
 	constructor(
 		protected readonly api: MockAdapter,
 	) { }
@@ -15,7 +16,7 @@ export class BackupRestoreService
 
 	public downloadBackup()
 	{
-		const data = localStorage.getItem(this.localDBName);
+		const data = this.fileIdentifier + localStorage.getItem(this.localDBName);
 		const blob = new Blob([data], { type: 'text/txt' });
 
 		this.fileUrl = this.createObjectURL(blob);
@@ -24,8 +25,17 @@ export class BackupRestoreService
 
 	public restore(content: string)
 	{
-		console.warn('restoring: ', content);
-		this.api.restoreData(content);
+		if (!!content && content !== '' && content.substring(0, this.fileIdentifier.length) === this.fileIdentifier)
+		{
+			content = content.slice(this.fileIdentifier.length);
+			this.api.restoreData(content);
+		}
+		else
+		{
+			const error = 'Invalid file, please upload a valid backup file';
+			console.error('Invalid file, please upload a valid backup file');
+			alert(error);
+		}
 	}
 
 	private createObjectURL(file)

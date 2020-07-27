@@ -18,7 +18,7 @@ export class RestoreDialogComponent implements OnInit
 
 	public ngOnInit(): void
 	{
-		this.fileContent = '';
+		// this.fileContent = '';
 	}
 
 	public loadFile(fileList: FileList): void
