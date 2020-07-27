@@ -67,11 +67,9 @@ export class AppComponent implements OnInit
 
 		const dateTime = this.utility.getCurrentDateTime();
 
-		link.download = 'backup-' + dateTime + '.txt';
+		link.download = 'RodTaskList-backup-' + dateTime + '.txt';
 		link.click();
 	}
-
-
 
 	public handleRestore()
 	{
