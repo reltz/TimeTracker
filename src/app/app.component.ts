@@ -5,7 +5,7 @@ import { filter, map, take, tap } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TaskListQuery } from './@core/session-store/task-list-query';
 import { TaskListService } from './@core/session-store/task-list.service';
-import { ITaskList } from './@core/session-store/taskListModel';
+import { IList } from './@core/session-store/taskListModel';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
 import { UtilityService } from './services/utility.service';
@@ -15,11 +15,10 @@ import { UtilityService } from './services/utility.service';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit
-{
+export class AppComponent implements OnInit {
 	public title: string;
 	public hideList: boolean;
-	public allLists$: Observable<ITaskList[]>;
+	public allLists$: Observable<IList[]>;
 	public isThereActive$: Observable<boolean>;
 	constructor(
 		protected readonly service: TaskListService,
@@ -27,12 +26,10 @@ export class AppComponent implements OnInit
 		protected readonly backupRestore: BackupRestoreService,
 		protected readonly utility: UtilityService,
 		protected readonly dialog: MatDialog,
-	)
-	{
+	) {
 
 	}
-	public ngOnInit()
-	{
+	public ngOnInit() {
 		this.isThereActive$ = this.query.isThereActive$;
 		this.service.loadAll();
 		this.allLists$ = this.query.selectAll();
@@ -46,8 +43,7 @@ export class AppComponent implements OnInit
 
 	}
 
-	public addNewList(): void
-	{
+	public addNewList(): void {
 		this.service.upsert({
 			title: 'Title',
 			id: v4(),
@@ -55,13 +51,11 @@ export class AppComponent implements OnInit
 		});
 	}
 
-	public toogleList()
-	{
+	public toogleList() {
 		this.hideList = !this.hideList;
 	}
 
-	public download()
-	{
+	public download() {
 		const link = document.createElement("a");
 		link.href = this.backupRestore.downloadBackup();
 
@@ -71,8 +65,7 @@ export class AppComponent implements OnInit
 		link.click();
 	}
 
-	public handleRestore()
-	{
+	public handleRestore() {
 		this.dialog.open(RestoreDialogComponent)
 			.afterClosed();
 	}

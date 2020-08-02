@@ -3,13 +3,13 @@
 		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
 	</mat-card-header>
 	<mat-card-content>
-		<div *ngFor="let item of controlsArraySize" class="list-items-wrapper">
-			<!-- <mat-checkbox></mat-checkbox> -->
+		<div *ngFor="let item of allContent.controls;" class="list-items-wrapper">
+			<mat-checkbox></mat-checkbox>
 			<mat-icon>check_circle_outline</mat-icon>
 			<mat-form-field appearance="standard">
-				<input matInput placeholder="New Item" [formControl]="contentFormGroup.controls[item]">
+				<input matInput placeholder="New Item" [formControl]="item.get('text')">
 			</mat-form-field>
-			<button mat-icon-button (click)="deleteItem(item)">
+			<button mat-icon-button (click)="deleteItem(item.get('id').value)">
 				<mat-icon>delete</mat-icon>
 			</button>
 		</div>
@@ -20,7 +20,7 @@
 			<span class="hide-in-mobile">Add item</span>
 			<mat-icon>add_circle_outline</mat-icon>
 		</button>
-		<button mat-raised-button (click)="saveList()" [disabled]="formGroup.pristine && contentFormGroup.pristine">
+		<button mat-raised-button (click)="saveList()" [disabled]="formGroup.pristine && allContent.pristine">
 			<span class="hide-in-mobile">Save</span>
 			<mat-icon>save</mat-icon>
 		</button>
