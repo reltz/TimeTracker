@@ -5,6 +5,9 @@ import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operator
 import { TaskListState, TaskListStore } from './task-list-store';
 import { ITaskList } from './taskListModel';
 
+/**
+ * Query - part of the @datorama/akita library for state management. this should be used to retrieve information from the store.
+ */
 @Injectable()
 export class TaskListQuery extends QueryEntity<TaskListState> {
 

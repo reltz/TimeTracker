@@ -13,6 +13,9 @@ export function createInitialState(): TaskListState
 	};
 }
 
+/**
+ * Store - part of the @datorama/akita library architecture for state management
+ */
 @StoreConfig({ name: 'taskList' })
 export class TaskListStore extends EntityStore<TaskListState, ITaskList>{
 	constructor()
