@@ -4,10 +4,9 @@
 	</mat-card-header>
 	<mat-card-content>
 		<div *ngFor="let item of allContent.controls;" class="list-items-wrapper">
-			<mat-checkbox></mat-checkbox>
-			<mat-icon>check_circle_outline</mat-icon>
+			<mat-checkbox [checked]="item.get('isChecked').value" (change)="toggleCheck(item.get('id').value)"></mat-checkbox>
 			<mat-form-field appearance="standard">
-				<input matInput placeholder="New Item" [formControl]="item.get('text')">
+				<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="New Item" [formControl]="item.get('text')">
 			</mat-form-field>
 			<button mat-icon-button (click)="deleteItem(item.get('id').value)">
 				<mat-icon>delete</mat-icon>

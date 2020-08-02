@@ -83,6 +83,13 @@ export class ListViewComponent implements OnInit, OnDestroy {
 		this.title.nativeElement.select();
 	}
 
+	public toggleCheck(itemId: string) {
+		const toUpdate = this.allContent.controls.find(group => group.value.id === itemId).get('isChecked');
+		toUpdate.setValue(!toUpdate.value);
+		this.saveList();
+		console.warn('is checked??', this.allContent.controls)
+	}
+
 	private mapFormGroupToListContent(itemId?: string): IContent[] {
 		const content: IContent[] = [];
 
