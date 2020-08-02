@@ -1,18 +1,11 @@
-export interface ITaskList
-{
+export interface IList {
 	id: string;
 	title: string;
-	content: string[];
+	content: IContent[];
 }
 
-// Second prototype - TODO
-export interface IList
-{
+export interface IContent {
 	id: string;
-	title: string;
-	content: {
-		id: string;
-		isChecked: boolean;
-		text: string;
-	}[];
+	isChecked: boolean;
+	text: string;
 }
