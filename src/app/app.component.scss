@@ -31,12 +31,16 @@
 	margin-top: 35px;
 	width: 55%;
 }
-.burger-menu {
+.expand-lists {
 	display: none;
 }
 
 .header-buttons {
 	margin-top: -10px;
+}
+
+.mat-icon {
+	vertical-align: middle;
 }
 
 @media (max-width: $breakpoint-phone) {
@@ -75,7 +79,7 @@
 		display: none;
 	}
 
-	.burger-menu {
+	.expand-lists {
 		margin-left: auto;
 		margin-right: auto;
 		display: block;

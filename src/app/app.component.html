@@ -18,8 +18,15 @@
 	<mat-card-content>
 		<div class="wrapper">
 			<div class="list-of-lists">
-				<button class="burger-menu" mat-icon-button (click)="toogleList()">
-					<mat-icon>menu</mat-icon>
+				<button class="expand-lists" mat-raised-button (click)="toogleList()">
+					<span *ngIf="!hideList; else colapse">
+						Expand
+						<mat-icon>chevron_right</mat-icon>
+					</span>
+					<ng-template #colapse>
+						Colapse
+						<mat-icon>expand_more</mat-icon>
+					</ng-template>
 				</button>
 				<div [ngClass]="!hideList ? 'hideList' : ''">
 					<div *ngFor="let list of (allLists$ | async)">
