@@ -9,7 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { MockAdapter } from '../app/Adapters/mock-adapter.service';
+import { environment } from '../environments/environment';
 import { TaskListQuery } from './@core/session-store/task-list-query';
 import { TaskListStore } from './@core/session-store/task-list-store';
 import { TaskListService } from './@core/session-store/task-list.service';
@@ -44,6 +46,7 @@ const matModules = [
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 		...matModules,
+		ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
 	],
 	providers: [
 		UtilityService,

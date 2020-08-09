@@ -8,6 +8,7 @@ import { TaskListService } from './@core/session-store/task-list.service';
 import { IList } from './@core/session-store/taskListModel';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
+import { PwaService } from './services/pwa.service';
 import { UtilityService } from './services/utility.service';
 
 @Component({
@@ -15,7 +16,8 @@ import { UtilityService } from './services/utility.service';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit
+{
 	public title: string;
 	public hideList: boolean;
 	public allLists$: Observable<IList[]>;
@@ -26,10 +28,12 @@ export class AppComponent implements OnInit {
 		protected readonly backupRestore: BackupRestoreService,
 		protected readonly utility: UtilityService,
 		protected readonly dialog: MatDialog,
-	) {
+	)
+	{
 
 	}
-	public ngOnInit() {
+	public ngOnInit()
+	{
 		this.isThereActive$ = this.query.isThereActive$;
 		this.service.loadAll();
 		this.allLists$ = this.query.selectAll();
@@ -43,7 +47,8 @@ export class AppComponent implements OnInit {
 
 	}
 
-	public addNewList(): void {
+	public addNewList(): void
+	{
 		this.service.upsert({
 			title: 'Title',
 			id: v4(),
@@ -51,11 +56,13 @@ export class AppComponent implements OnInit {
 		});
 	}
 
-	public toogleList() {
+	public toogleList()
+	{
 		this.hideList = !this.hideList;
 	}
 
-	public download() {
+	public download()
+	{
 		const link = document.createElement("a");
 		link.href = this.backupRestore.downloadBackup();
 
@@ -65,7 +72,8 @@ export class AppComponent implements OnInit {
 		link.click();
 	}
 
-	public handleRestore() {
+	public handleRestore()
+	{
 		this.dialog.open(RestoreDialogComponent)
 			.afterClosed();
 	}
