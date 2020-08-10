@@ -8,7 +8,7 @@
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
-		"build-page": "npx ng build --prod",
+		"build-page": "npx ng build --prod --base-href /",
 		"push-page": "npx ngh",
 		"build:push": "npm run build-page && npm run push-page",
 		"run-server": "http-server -p 8080 -c-1 dist"
