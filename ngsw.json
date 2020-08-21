@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1597097978036,
+  "timestamp": 1598034495733,
   "index": "/TaskList/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/TaskList/favicon.ico",
         "/TaskList/index.html",
-        "/TaskList/main.b23cc9b0d1db92f2a305.js",
+        "/TaskList/main.3e2d31a6a3df50d7696c.js",
         "/TaskList/manifest.webmanifest",
         "/TaskList/polyfills.a4021de53358bb0fec14.js",
         "/TaskList/runtime.e227d1a0e31cbccbf8ec.js",
-        "/TaskList/styles.4360b76f9dd0f179293c.css"
+        "/TaskList/styles.6835250783d08b9d3a97.css"
       ],
       "patterns": []
     },
@@ -52,12 +52,12 @@
     "/TaskList/assets/icons/icon-72x72.png": "3120891cf58efc067d6306b2bb8594dad050606e",
     "/TaskList/assets/icons/icon-96x96.png": "9442f21b230b9a06f68e50851928e2e645dc6a85",
     "/TaskList/favicon.ico": "464f7490bb3909d2f4818391a5a2c2c87a6f55f0",
-    "/TaskList/index.html": "3befe3a8c124d3014cb3e7f9e324be38026e5187",
-    "/TaskList/main.b23cc9b0d1db92f2a305.js": "107ace975e6f2ae338d4ebd1de8ba58effd67a55",
+    "/TaskList/index.html": "a86375cd958ade84d5e653ccdfd8b5bf14d5eb1e",
+    "/TaskList/main.3e2d31a6a3df50d7696c.js": "de1b91dd2f89ae7ebfb08240d53dcc87adf2a2d0",
     "/TaskList/manifest.webmanifest": "bd694c449d2bbbecda9f59c9f2828deaef56b454",
     "/TaskList/polyfills.a4021de53358bb0fec14.js": "b47435a9ef2a4829f2f9dfd35599bde3614981b1",
     "/TaskList/runtime.e227d1a0e31cbccbf8ec.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/TaskList/styles.4360b76f9dd0f179293c.css": "5c59a903fd552cdfdc239eb99f63799ee202f8e3"
+    "/TaskList/styles.6835250783d08b9d3a97.css": "869ce4136f55163530aad2e81b708130a33a3530"
   },
   "navigationUrls": [
     {
