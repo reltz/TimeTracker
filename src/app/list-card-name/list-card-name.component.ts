@@ -1,8 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, takeWhile, tap } from 'rxjs/operators';
+import { filter, map, take, takeWhile, tap } from 'rxjs/operators';
 import { TaskListQuery } from '../@core/session-store/task-list-query';
 import { TaskListService } from '../@core/session-store/task-list.service';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
 	selector: 'app-list-card-name',
@@ -19,6 +21,7 @@ export class ListCardNameComponent implements OnInit, OnDestroy
 	constructor(
 		private query: TaskListQuery,
 		private svc: TaskListService,
+		protected readonly dialog: MatDialog,
 	) { }
 
 	public ngOnInit(): void
@@ -50,11 +53,19 @@ export class ListCardNameComponent implements OnInit, OnDestroy
 
 	public deleteList()
 	{
-		if (this.isActiveOne)
-		{
-			this.svc.unsetActive();
-		}
-		this.svc.delete(this.id);
+		const listName = this.query.getEntity(this.id).title;
+		this.dialog.open(ConfirmDeleteDialogComponent, { data: { Name: listName } })
+			.afterClosed().pipe(
+				filter(confirmed => !!confirmed),
+				take(1),
+			).subscribe(() =>
+			{
+				if (this.isActiveOne)
+				{
+					this.svc.unsetActive();
+				}
+				this.svc.delete(this.id);
+			});
 	}
 
 	public ngOnDestroy()

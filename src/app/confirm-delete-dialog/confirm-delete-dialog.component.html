@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Delete list {{data.Name}} ? </h1>
+<div mat-dialog-content>
+	<div>
+		Are you sure you want to delete "{{data.Name}}" ?
+		<p><strong>This action cannot be undone.</strong></p>
+	</div>
+
+</div>
+<div mat-dialog-actions>
+	<button mat-raised-button
+			[mat-dialog-close]="true">Delete</button>
+
+	<button mat-flat-button
+			[mat-dialog-close]="false">Cancel</button>
+</div>

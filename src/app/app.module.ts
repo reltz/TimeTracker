@@ -17,6 +17,7 @@ import { TaskListStore } from './@core/session-store/task-list-store';
 import { TaskListService } from './@core/session-store/task-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
 import { ListCardNameComponent } from './list-card-name/list-card-name.component';
 import { ListViewComponent } from './list-view/list-view.component';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
@@ -39,6 +40,7 @@ const matModules = [
 		ListCardNameComponent,
 		ListViewComponent,
 		RestoreDialogComponent,
+		ConfirmDeleteDialogComponent,
 	],
 	imports: [
 		BrowserModule,

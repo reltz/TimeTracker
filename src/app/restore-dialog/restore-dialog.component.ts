@@ -7,7 +7,7 @@ import { BackupRestoreService } from '../services/backup-restore.service';
 	templateUrl: './restore-dialog.component.html',
 	styleUrls: ['./restore-dialog.component.scss'],
 })
-export class RestoreDialogComponent implements OnInit
+export class RestoreDialogComponent
 {
 	public fileContent: string;
 
@@ -15,11 +15,6 @@ export class RestoreDialogComponent implements OnInit
 		protected readonly dialogRef: MatDialogRef<RestoreDialogComponent>,
 		protected readonly backUpService: BackupRestoreService,
 	) { }
-
-	public ngOnInit(): void
-	{
-		// this.fileContent = '';
-	}
 
 	public loadFile(fileList: FileList): void
 	{
