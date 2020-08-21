@@ -1,5 +1,10 @@
 @import '../defaults.scss';
 
+//  Overwriting default theme css
+.mat-card:not([class*='mat-elevation-z']) {
+	box-shadow: none;
+}
+
 .title {
 	font-size: 2em;
 	color: $app-accent;
