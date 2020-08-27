@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListCardNameComponent } from './list-card-name.component';
+import { LogViewComponent } from './log-view.component';
 
-describe('ListCardNameComponent', () =>
+describe('ListViewComponent', () =>
 {
-	let component: ListCardNameComponent;
-	let fixture: ComponentFixture<ListCardNameComponent>;
+	let component: LogViewComponent;
+	let fixture: ComponentFixture<LogViewComponent>;
 
 	beforeEach(async(() =>
 	{
 		TestBed.configureTestingModule({
-			declarations: [ListCardNameComponent],
+			declarations: [LogViewComponent],
 		})
 			.compileComponents();
 	}));
 
 	beforeEach(() =>
 	{
-		fixture = TestBed.createComponent(ListCardNameComponent);
+		fixture = TestBed.createComponent(LogViewComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

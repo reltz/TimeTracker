@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { v4 as makeUUid } from 'uuid';
-import { TaskListService } from './@core/session-store/task-list.service';
+import { TimeTrackerService } from './@core/session-store/time-tracker.service';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
 import { UtilityService } from './services/utility.service';
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy
 	public viewType$: Observable<string>;
 
 	constructor(
-		protected readonly service: TaskListService,
+		protected readonly service: TimeTrackerService,
 		protected readonly backupRestore: BackupRestoreService,
 		protected readonly utility: UtilityService,
 		protected readonly dialog: MatDialog,
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy
 	{
 		this.control = new FormControl('single');
 		this.service.loadAll();
-		this.title = 'Rod\'s TaskList App';
+		this.title = 'Time Tracker';
 
 		this.viewType$ = this.control.valueChanges.pipe(
 			startWith('single'),
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy
 
 		const dateTime = this.utility.getCurrentDateTime();
 
-		link.download = 'RodTaskList-backup-' + dateTime + '.txt';
+		link.download = 'TimeTracker-backup-' + dateTime + '.txt';
 		link.click();
 	}
 
@@ -63,12 +63,13 @@ export class AppComponent implements OnInit, OnDestroy
 			.afterClosed();
 	}
 
-	public addNewList(): void
+	public addNewLog(): void
 	{
 		this.service.upsert({
 			title: 'Title',
 			id: makeUUid(),
 			content: [],
+			totalTime: '8h',
 		});
 	}
 }

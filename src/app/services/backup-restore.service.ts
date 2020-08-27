@@ -6,13 +6,13 @@ import { MockAdapter } from '../Adapters/mock-adapter.service';
 })
 export class BackupRestoreService
 {
-	private fileIdentifier: string = 'RodTaskList';
+	private fileIdentifier: string = 'TimeTrackerApp';
 	constructor(
 		protected readonly api: MockAdapter,
 	) { }
 
 	private fileUrl: any;
-	private readonly localDBName: string = 'RodTaskListApp';
+	private readonly localDBName: string = 'TimeTrackerApp';
 
 	public downloadBackup()
 	{

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TaskListQuery } from '../@core/session-store/task-list-query';
-import { TaskListService } from '../@core/session-store/task-list.service';
-import { IList } from '../@core/session-store/taskListModel';
+import { TimeTrackerQuery } from '../@core/session-store/time-tracker-query';
+import { TimeTrackerService } from '../@core/session-store/time-tracker.service';
+import { ILog } from '../@core/session-store/timeTrackerModel';
 
 @Component({
 	selector: 'app-multi-view',
@@ -11,16 +11,16 @@ import { IList } from '../@core/session-store/taskListModel';
 })
 export class MultiViewComponent implements OnInit
 {
-	public allLists$: Observable<IList[]>;
+	public allLogs$: Observable<ILog[]>;
 
 	constructor(
-		protected readonly service: TaskListService,
-		protected readonly query: TaskListQuery,
+		protected readonly service: TimeTrackerService,
+		protected readonly query: TimeTrackerQuery,
 	) { }
 
 	public ngOnInit(): void
 	{
-		this.allLists$ = this.query.selectAll();
+		this.allLogs$ = this.query.selectAll();
 	}
 
 }

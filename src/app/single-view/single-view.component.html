@@ -1,6 +1,6 @@
 <div class="wrapper">
-	<div class="list-of-lists">
-		<button *ngIf="(allLists$ | async).length > 1"
+	<div class="list-of-logs">
+		<button *ngIf="(allLogs$ | async).length > 1"
 				class="expand-lists" mat-raised-button (click)="toogleList()">
 			<span *ngIf="!hideList; else colapse">
 				Expand
@@ -12,17 +12,17 @@
 			</ng-template>
 		</button>
 		<div [ngClass]="!hideList ? 'hide-mobile' : ''">
-			<div *ngFor="let list of (allLists$ | async)">
-				<app-list-card-name mat-menu-item [id]=list.id></app-list-card-name>
+			<div *ngFor="let log of (allLogs$ | async)">
+				<app-log-card-name mat-menu-item [id]=log.id></app-log-card-name>
 			</div>
 		</div>
 		<button mat-raised-button (click)="addNewList()" class="hide-mobile">
-			Add new List
+			Add new log entry
 			<mat-icon>add_circle_outline</mat-icon>
 		</button>
 	</div>
 
-	<div class="list-view">
-		<app-list-view *ngIf="isThereActive$ | async"></app-list-view>
+	<div class="log-view">
+		<app-log-view *ngIf="isThereActive$ | async"></app-log-view>
 	</div>
 </div>

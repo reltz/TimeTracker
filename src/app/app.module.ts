@@ -15,14 +15,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MockAdapter } from '../app/Adapters/mock-adapter.service';
 import { environment } from '../environments/environment';
-import { TaskListQuery } from './@core/session-store/task-list-query';
-import { TaskListStore } from './@core/session-store/task-list-store';
-import { TaskListService } from './@core/session-store/task-list.service';
+import { TimeTrackerQuery } from './@core/session-store/time-tracker-query';
+import { TimeTrackerStore } from './@core/session-store/time-tracker-store';
+import { TimeTrackerService } from './@core/session-store/time-tracker.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
-import { ListCardNameComponent } from './list-card-name/list-card-name.component';
-import { ListViewComponent } from './list-view/list-view.component';
+import { LogCardNameComponent } from './log-card-name/log-card-name.component';
+import { LogViewComponent } from './log-view/log-view.component';
 import { MultiViewComponent } from './multi-view/multi-view.component';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
@@ -45,8 +45,8 @@ const matModules = [
 @NgModule({
 	declarations: [
 		AppComponent,
-		ListCardNameComponent,
-		ListViewComponent,
+		LogCardNameComponent,
+		LogViewComponent,
 		RestoreDialogComponent,
 		ConfirmDeleteDialogComponent,
 		SingleViewComponent,
@@ -62,9 +62,9 @@ const matModules = [
 	],
 	providers: [
 		UtilityService,
-		TaskListService,
-		TaskListStore,
-		TaskListQuery,
+		TimeTrackerService,
+		TimeTrackerStore,
+		TimeTrackerQuery,
 		MockAdapter,
 		BackupRestoreService,
 	],

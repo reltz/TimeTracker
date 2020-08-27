@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { v4 as makeUUid } from 'uuid';
-import { TaskListQuery } from '../@core/session-store/task-list-query';
-import { TaskListService } from '../@core/session-store/task-list.service';
-import { IList } from '../@core/session-store/taskListModel';
+import { TimeTrackerQuery } from '../@core/session-store/time-tracker-query';
+import { TimeTrackerService } from '../@core/session-store/time-tracker.service';
+import { ILog } from '../@core/session-store/timeTrackerModel';
 
 @Component({
 	selector: 'app-single-view',
@@ -14,19 +14,19 @@ import { IList } from '../@core/session-store/taskListModel';
 export class SingleViewComponent implements OnInit
 {
 	public hideList: boolean = false;
-	public allLists$: Observable<IList[]>;
+	public allLogs$: Observable<ILog[]>;
 	public isThereActive$: Observable<boolean>;
 
 	constructor(
-		protected readonly service: TaskListService,
-		protected readonly query: TaskListQuery,
+		protected readonly service: TimeTrackerService,
+		protected readonly query: TimeTrackerQuery,
 	) { }
 
 	public ngOnInit(): void
 	{
 		this.isThereActive$ = this.query.isThereActive$;
 
-		this.allLists$ = this.query.selectAll();
+		this.allLogs$ = this.query.selectAll();
 
 		this.query.select()
 			.pipe(
@@ -42,6 +42,7 @@ export class SingleViewComponent implements OnInit
 			title: 'Title',
 			id: makeUUid(),
 			content: [],
+			totalTime: '8h',
 		});
 	}
 

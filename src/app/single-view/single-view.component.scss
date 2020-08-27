@@ -4,7 +4,7 @@
 	display: flex;
 }
 
-.list-of-lists {
+.list-of-logs {
 	margin-top: 20px;
 	width: 20%;
 	max-width: 500px;
@@ -14,7 +14,7 @@
 	margin-top: 30px;
 }
 
-.list-view {
+.log-view {
 	margin-left: 200px;
 	margin-top: 35px;
 	width: 55%;
@@ -33,7 +33,7 @@
 		display: block;
 	}
 
-	.list-of-lists {
+	.list-of-logs {
 		display: block;
 		margin-top: 20px;
 		margin-left: auto;
@@ -42,7 +42,7 @@
 		max-width: 400px;
 	}
 
-	.list-view {
+	.log-view {
 		margin-left: auto;
 		margin-right: auto;
 		width: 80%;

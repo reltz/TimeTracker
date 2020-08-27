@@ -5,7 +5,7 @@
 		</mat-card-title>
 
 		<div class="header-buttons">
-			<button #downloadButton mat-icon-button (click)="this.download()" title="Backup your lists">
+			<button #downloadButton mat-icon-button (click)="this.download()" title="Backup your logs">
 				<mat-icon>save</mat-icon>
 			</button>
 
@@ -14,12 +14,12 @@
 			</button>
 			<mat-form-field>
 				<mat-select [formControl]="control">
-					<mat-option value="single">Single List View</mat-option>
-					<mat-option value="multi">Multi List View</mat-option>
+					<mat-option value="single">Single View</mat-option>
+					<mat-option value="multi">Multi View</mat-option>
 				</mat-select>
 			</mat-form-field>
-			<button mat-raised-button (click)="addNewList()">
-				Add new List
+			<button mat-raised-button (click)="addNewLog()">
+				Add new log entry
 				<mat-icon>add_circle_outline</mat-icon>
 			</button>
 		</div>

@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { TaskListState, TaskListStore } from './task-list-store';
-import { IList } from './taskListModel';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { TimeTrackerState, TimeTrackerStore } from './time-tracker-store';
+import { ILog } from './timeTrackerModel';
 
 /**
  * Query - part of the @datorama/akita library for state management. this should be used to retrieve information from the store.
  */
 @Injectable()
-export class TaskListQuery extends QueryEntity<TaskListState> {
+export class TimeTrackerQuery extends QueryEntity<TimeTrackerState> {
 
-	constructor(protected store: TaskListStore) {
+	constructor(protected store: TimeTrackerStore)
+	{
 		super(store);
 	}
 
-	public activeList$: Observable<IList> = this.select()
+	public activeLog$: Observable<ILog> = this.select()
 		.pipe(
 			map(state => state.active),
 			filter(active => active !== ''),
@@ -25,7 +26,8 @@ export class TaskListQuery extends QueryEntity<TaskListState> {
 	public isThereActive$ = this.select()
 		.pipe(
 			map(state => state.active),
-			map(active => {
+			map(active =>
+			{
 				return active === '' || active === null
 					? false : true;
 			}),

@@ -1,0 +1,74 @@
+@import '../../defaults.scss';
+
+.mat-card-header {
+	font-size: 2em;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed grey;
+}
+
+.mat-checkbox {
+	margin-right: 20px;
+}
+
+.mat-input {
+	width: 80%;
+}
+
+.scratched {
+	text-decoration: line-through grey solid;
+}
+
+.two-fields {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+
+	& mat-form-field {
+		width: 48%;
+	}
+}
+.mat-form-field-infix {
+	border-top: 0;
+}
+
+.log-items-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.mat-icon {
+	margin-right: 10px;
+}
+
+@media (max-width: $breakpoint-phone) {
+	mat-card {
+		width: 100%;
+	}
+
+	mat-card-content {
+		width: 100%;
+	}
+
+	mat-form-field {
+		width: 300px;
+	}
+
+	.mat-icon {
+		margin-right: 0px;
+	}
+
+	.mat-form-field {
+		width: 50vw;
+		margin-right: 10px;
+	}
+
+	.mat-raised-button {
+		width: 10px;
+		overflow: hidden;
+	}
+
+	.hide-in-mobile {
+		display: none;
+	}
+}

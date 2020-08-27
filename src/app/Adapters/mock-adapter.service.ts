@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TaskListStore } from '../@core/session-store/task-list-store';
-import { IList } from '../@core/session-store/taskListModel';
+import { TimeTrackerStore } from '../@core/session-store/time-tracker-store';
+import { ILog } from '../@core/session-store/timeTrackerModel';
 
 /**
  * This adapter is using local storage temporarely instead of db api conection
@@ -11,9 +11,9 @@ import { IList } from '../@core/session-store/taskListModel';
 })
 export class MockAdapter
 {
-	private readonly localDBName: string = 'RodTaskListApp';
+	private readonly localDBName: string = 'TimeTrackerApp';
 	constructor(
-		private store: TaskListStore,
+		private store: TimeTrackerStore,
 	)
 	{
 	}
@@ -26,26 +26,26 @@ export class MockAdapter
 			localStorage.setItem(this.localDBName, '{}');
 		}
 
-		const allLists = JSON.parse(localStorage.getItem(this.localDBName));
-		Object.keys(allLists).forEach(key =>
+		const allLogs = JSON.parse(localStorage.getItem(this.localDBName));
+		Object.keys(allLogs).forEach(key =>
 		{
-			this.store.upsert(allLists[key].id, allLists[key]);
+			this.store.upsert(allLogs[key].id, allLogs[key]);
 		});
 	}
 
-	public upsert(taskList: IList): void
+	public upsert(log: ILog): void
 	{
 		const allDB = this.getLocalStorageObject();
-		allDB[taskList.id] = taskList;
+		allDB[log.id] = log;
 		this.mapAndSetLocalStorage(allDB);
 	}
 
-	public update(taskList: Partial<IList>): void
+	public update(log: Partial<ILog>): void
 	{
 		const allDb = this.getLocalStorageObject();
 
-		if (taskList.title) { allDb[taskList.id].title = taskList.title; }
-		if (taskList.content) { allDb[taskList.id].content = taskList.content; }
+		if (log.title) { allDb[log.id].title = log.title; }
+		if (log.content) { allDb[log.id].content = log.content; }
 		this.mapAndSetLocalStorage(allDb);
 	}
 

@@ -1,0 +1,55 @@
+<mat-card>
+	<mat-card-header>
+		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
+		<input matInput [formControl]="formGroup.controls.totalTime">
+		<button mat-icon-button (click)="deleteLog()">
+			<mat-icon>delete</mat-icon>
+		</button>
+	</mat-card-header>
+	<mat-card-content>
+		<div *ngFor="let item of allContent.controls;">
+			<div *ngIf="item.get('isChecked').value === false" class="log-items-wrapper">
+				<mat-checkbox color="warn" [checked]="item.get('isChecked').value" (change)="toggleCheck(item.get('id').value)"></mat-checkbox>
+				<div class="two-fields">
+					<mat-form-field appearance="outline">
+						<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="New Item" [formControl]="item.get('text')">
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="Time (e.g. 1h20m)" [formControl]="item.get('time')">
+					</mat-form-field>
+				</div>
+				<button mat-icon-button (click)="deleteItem(item.get('id').value)">
+					<mat-icon>delete_outline</mat-icon>
+				</button>
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+		<div *ngFor="let item of allContent.controls;">
+			<div *ngIf="item.get('isChecked').value === true" class="log-items-wrapper">
+				<mat-checkbox color="warn" [checked]="item.get('isChecked').value" (change)="toggleCheck(item.get('id').value)"></mat-checkbox>
+				<div class="two-fields">
+					<mat-form-field appearance="outline">
+						<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="New Item" [formControl]="item.get('text')">
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="Time (e.g. 1h20m)" [formControl]="item.get('time')">
+					</mat-form-field>
+				</div>
+				<button mat-icon-button (click)="deleteItem(item.get('id').value)">
+					<mat-icon>delete_outline</mat-icon>
+				</button>
+			</div>
+		</div>
+
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button (click)="addItem()">
+			<span class="hide-in-mobile">Add item</span>
+			<mat-icon>add_circle_outline</mat-icon>
+		</button>
+		<button mat-raised-button (click)="saveLog()" [disabled]="formGroup.pristine && allContent.pristine">
+			<span class="hide-in-mobile">Save</span>
+			<mat-icon>save</mat-icon>
+		</button>
+	</mat-card-actions>
+</mat-card>

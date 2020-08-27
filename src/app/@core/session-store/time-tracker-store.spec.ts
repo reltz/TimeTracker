@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TaskListService } from './task-list.service';
+import { TimeTrackerStore } from './time-tracker-store';
 
-describe('TaskListService', () =>
+describe('TaskListStoreService', () =>
 {
-	let service: TaskListService;
+	let service: TimeTrackerStore;
 
 	beforeEach(() =>
 	{
 		TestBed.configureTestingModule({});
-		service = TestBed.inject(TaskListService);
+		service = TestBed.inject(TimeTrackerStore);
 	});
 
 	it('should be created', () =>

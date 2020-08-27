@@ -1,0 +1,27 @@
+@import '../../defaults.scss';
+
+.mat-card {
+	margin-top: 15px;
+	align-content: flex-start;
+}
+
+.mat-card:hover {
+	background-color: $app-accent;
+	color: $app-tertiary;
+}
+
+.active {
+	background-color: $app-accent;
+	color: $app-tertiary;
+}
+
+.log-name-wrapper {
+	display: flex;
+	align-items: center;
+	height: 30px;
+}
+
+.mat-icon-button {
+	margin-right: 0;
+	margin-left: auto;
+}
