@@ -18,7 +18,8 @@
 	<mat-card-content>
 		<div class="wrapper">
 			<div class="list-of-lists">
-				<button class="expand-lists" mat-raised-button (click)="toogleList()">
+				<button *ngIf="(allLists$ | async).length > 1"
+						class="expand-lists" mat-raised-button (click)="toogleList()">
 					<span *ngIf="!hideList; else colapse">
 						Expand
 						<mat-icon>chevron_right</mat-icon>
