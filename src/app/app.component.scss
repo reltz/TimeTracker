@@ -5,6 +5,10 @@
 	box-shadow: none;
 }
 
+mat-form-field {
+	width: 120px;
+}
+
 .title {
 	font-size: 2em;
 	color: $app-accent;
@@ -17,6 +21,7 @@
 	padding: 25px;
 }
 .mat-card-header {
+	display: flex;
 	justify-content: space-between;
 }
 
@@ -40,8 +45,19 @@
 		margin-left: 2vw;
 		overflow: scroll;
 	}
+
+	.mat-card-header {
+		display: block;
+		text-align: center;
+		// align-content: center;
+	}
+
 	.mat-card-content {
 		display: block;
+	}
+
+	mat-form-field {
+		width: 120px;
 	}
 
 	.title {
