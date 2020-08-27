@@ -1,10 +1,12 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, takeWhile, tap, timestamp } from 'rxjs/operators';
+import { filter, map, switchMap, take, takeWhile, tap, timestamp } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TaskListQuery } from '../@core/session-store/task-list-query';
 import { TaskListService } from '../@core/session-store/task-list.service';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 import { IContent, IList } from './../@core/session-store/taskListModel';
 
 @Component({
@@ -15,7 +17,9 @@ import { IContent, IList } from './../@core/session-store/taskListModel';
 export class ListViewComponent implements OnInit, OnDestroy
 {
 	@ViewChild('focusTitle') public title: ElementRef;
+	@Input() public providedList: IList;
 	public currentList$: Observable<IList>;
+	private currentList: IList;
 	public formGroup: FormGroup;
 	public allContent: FormArray;
 	private isAlive = true;
@@ -23,6 +27,7 @@ export class ListViewComponent implements OnInit, OnDestroy
 	constructor(
 		private query: TaskListQuery,
 		private svc: TaskListService,
+		protected readonly dialog: MatDialog,
 	) { }
 
 	public ngOnInit(): void
@@ -32,35 +37,68 @@ export class ListViewComponent implements OnInit, OnDestroy
 			name: new FormControl(''),
 		});
 
-		this.currentList$ = this.query.activeList$;
-
-		combineLatest(this.currentList$, this.query.isThereActive$).pipe(
-			filter(([cur, active]) => !!cur && !!active),
-			takeWhile(() => this.isAlive),
-			tap(() =>
-			{
-				this.allContent = new FormArray([]);
-			}),
-			map(([cur, active]) => cur),
-		).subscribe(values =>
+		if (!!this.providedList)
 		{
-			if (this.formGroup.controls.id.value === values.id)
+			this.currentList$ = this.query.selectEntity(this.providedList.id);
+			this.currentList$.pipe(
+				takeWhile(() => this.isAlive),
+				filter(current => !!current),
+				tap((x) =>
+				{
+					this.currentList = x;
+					this.allContent = new FormArray([]);
+				}),
+			).subscribe(values =>
 			{
-				this.formGroup.markAsPristine();
-			}
-			else
-			{
-				this.formGroup.controls.id.setValue(values.id);
+				if (this.formGroup.controls.id.value === values.id)
+				{
+					this.formGroup.markAsPristine();
+				}
+				else
+				{
+					this.formGroup.controls.id.setValue(values.id);
+					this.formGroup.controls.name.setValue(values.title);
+				}
+
 				this.formGroup.controls.name.setValue(values.title);
-			}
-
-			this.formGroup.controls.name.setValue(values.title);
-			values.content.forEach(item =>
-			{
-				this.allContent.push(this.createContentControls(item.id, item.text, item.isChecked));
+				values.content.forEach(item =>
+				{
+					this.allContent.push(this.createContentControls(item.id, item.text, item.isChecked));
+				});
 			});
-		});
+		}
+		else
+		{
+			this.currentList$ = this.query.activeList$;
 
+			combineLatest(this.currentList$, this.query.isThereActive$).pipe(
+				filter(([cur, active]) => !!cur && !!active),
+				takeWhile(() => this.isAlive),
+				map(([cur, active]) => cur),
+				tap(x =>
+				{
+					this.currentList = x;
+					this.allContent = new FormArray([]);
+				}),
+			).subscribe(values =>
+			{
+				if (this.formGroup.controls.id.value === values.id)
+				{
+					this.formGroup.markAsPristine();
+				}
+				else
+				{
+					this.formGroup.controls.id.setValue(values.id);
+					this.formGroup.controls.name.setValue(values.title);
+				}
+
+				this.formGroup.controls.name.setValue(values.title);
+				values.content.forEach(item =>
+				{
+					this.allContent.push(this.createContentControls(item.id, item.text, item.isChecked));
+				});
+			});
+		}
 	}
 
 	public ngOnDestroy()
@@ -88,6 +126,26 @@ export class ListViewComponent implements OnInit, OnDestroy
 		const id = this.formGroup.get('id').value;
 		const content = this.mapFormGroupToListContent();
 		this.svc.update({ id, content, title: this.formGroup.get('name').value });
+	}
+
+	public deleteList()
+	{
+		const listName = this.currentList.title;
+		let active: IList;
+		this.dialog.open(ConfirmDeleteDialogComponent, { data: { Name: listName } })
+			.afterClosed().pipe(
+				filter(confirmed => !!confirmed),
+				switchMap(() => this.query.activeList$),
+				tap(x => active = x),
+				take(1),
+			).subscribe(x =>
+			{
+				if (this.currentList && active && this.currentList.id === active.id)
+				{
+					this.svc.unsetActive();
+				}
+				this.svc.delete(this.currentList.id);
+			});
 	}
 
 	public selectAllText()

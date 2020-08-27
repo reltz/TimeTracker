@@ -1,0 +1,28 @@
+<div class="wrapper">
+	<div class="list-of-lists">
+		<button *ngIf="(allLists$ | async).length > 1"
+				class="expand-lists" mat-raised-button (click)="toogleList()">
+			<span *ngIf="!hideList; else colapse">
+				Expand
+				<mat-icon>chevron_right</mat-icon>
+			</span>
+			<ng-template #colapse>
+				Colapse
+				<mat-icon>expand_more</mat-icon>
+			</ng-template>
+		</button>
+		<div [ngClass]="!hideList ? 'hideList' : ''">
+			<div *ngFor="let list of (allLists$ | async)">
+				<app-list-card-name mat-menu-item [id]=list.id></app-list-card-name>
+			</div>
+		</div>
+		<button mat-raised-button (click)="addNewList()">
+			Add new List
+			<mat-icon>add_circle_outline</mat-icon>
+		</button>
+	</div>
+
+	<div class="list-view">
+		<app-list-view *ngIf="isThereActive$ | async"></app-list-view>
+	</div>
+</div>

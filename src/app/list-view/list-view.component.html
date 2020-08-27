@@ -1,16 +1,33 @@
 <mat-card>
 	<mat-card-header>
 		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
+		<button mat-icon-button (click)="deleteList()">
+			<mat-icon>delete</mat-icon>
+		</button>
 	</mat-card-header>
 	<mat-card-content>
-		<div *ngFor="let item of allContent.controls;" class="list-items-wrapper">
-			<mat-checkbox [checked]="item.get('isChecked').value" (change)="toggleCheck(item.get('id').value)"></mat-checkbox>
-			<mat-form-field appearance="standard">
-				<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="New Item" [formControl]="item.get('text')">
-			</mat-form-field>
-			<button mat-icon-button (click)="deleteItem(item.get('id').value)">
-				<mat-icon>delete</mat-icon>
-			</button>
+		<div *ngFor="let item of allContent.controls;">
+			<div *ngIf="item.get('isChecked').value === false" class="list-items-wrapper">
+				<mat-checkbox [checked]="item.get('isChecked').value" (change)="toggleCheck(item.get('id').value)"></mat-checkbox>
+				<mat-form-field appearance="standard">
+					<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="New Item" [formControl]="item.get('text')">
+				</mat-form-field>
+				<button mat-icon-button (click)="deleteItem(item.get('id').value)">
+					<mat-icon>delete_outline</mat-icon>
+				</button>
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+		<div *ngFor="let item of allContent.controls;">
+			<div *ngIf="item.get('isChecked').value === true" class="list-items-wrapper">
+				<mat-checkbox [checked]="item.get('isChecked').value" (change)="toggleCheck(item.get('id').value)"></mat-checkbox>
+				<mat-form-field appearance="standard">
+					<input matInput [ngClass]="{'scratched' : item.get('isChecked').value}" placeholder="New Item" [formControl]="item.get('text')">
+				</mat-form-field>
+				<button mat-icon-button (click)="deleteItem(item.get('id').value)">
+					<mat-icon>delete_outline</mat-icon>
+				</button>
+			</div>
 		</div>
 
 	</mat-card-content>

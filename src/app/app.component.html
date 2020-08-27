@@ -12,41 +12,21 @@
 			<button mat-icon-button (click)="this.handleRestore()" title="Restore app from text file">
 				<mat-icon>upgrade</mat-icon>
 			</button>
+			<mat-form-field>
+				<mat-select [formControl]="control">
+					<mat-option value="single">Single List View</mat-option>
+					<mat-option value="multi">Multi List View</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<button mat-raised-button (click)="addNewList()">
+				Add new List
+				<mat-icon>add_circle_outline</mat-icon>
+			</button>
 		</div>
 	</mat-card-header>
 
 	<mat-card-content>
-		<div class="wrapper">
-			<div class="list-of-lists">
-				<button *ngIf="(allLists$ | async).length > 1"
-						class="expand-lists" mat-raised-button (click)="toogleList()">
-					<span *ngIf="!hideList; else colapse">
-						Expand
-						<mat-icon>chevron_right</mat-icon>
-					</span>
-					<ng-template #colapse>
-						Colapse
-						<mat-icon>expand_more</mat-icon>
-					</ng-template>
-				</button>
-				<div [ngClass]="!hideList ? 'hideList' : ''">
-					<div *ngFor="let list of (allLists$ | async)">
-						<app-list-card-name mat-menu-item [id]=list.id></app-list-card-name>
-					</div>
-				</div>
-
-
-				<button mat-raised-button (click)="addNewList()">
-					Add new List
-					<mat-icon>add_circle_outline</mat-icon>
-				</button>
-			</div>
-
-			<div class="list-view">
-				<app-list-view *ngIf="isThereActive$ | async"></app-list-view>
-			</div>
-		</div>
-
+		<app-single-view *ngIf="(viewType$ | async) === 'single'"></app-single-view>
+		<app-multi-view *ngIf="(viewType$ | async) === 'multi'"></app-multi-view>
 	</mat-card-content>
-
 </mat-card>
