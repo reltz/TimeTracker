@@ -23,6 +23,8 @@ import { ListViewComponent } from './list-view/list-view.component';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
 import { UtilityService } from './services/utility.service';
+import { SingleViewComponent } from './single-view/single-view.component';
+import { MultiViewComponent } from './multi-view/multi-view.component';
 
 const matModules = [
 	MatCardModule,
@@ -41,6 +43,8 @@ const matModules = [
 		ListViewComponent,
 		RestoreDialogComponent,
 		ConfirmDeleteDialogComponent,
+		SingleViewComponent,
+		MultiViewComponent,
 	],
 	imports: [
 		BrowserModule,

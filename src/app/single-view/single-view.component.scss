@@ -1,0 +1,67 @@
+@import '../../defaults.scss';
+
+.wrapper {
+	display: flex;
+}
+
+.list-of-lists {
+	margin-top: 20px;
+	width: 20%;
+	max-width: 500px;
+}
+
+.mat-raised-button {
+	margin-top: 30px;
+}
+
+.list-view {
+	margin-left: 200px;
+	margin-top: 35px;
+	width: 55%;
+}
+
+.expand-lists {
+	display: none;
+}
+
+.mat-icon {
+	vertical-align: middle;
+}
+
+@media (max-width: $breakpoint-phone) {
+	.wrapper {
+		display: block;
+	}
+
+	.list-of-lists {
+		display: block;
+		margin-top: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 80%;
+		max-width: 400px;
+	}
+
+	.list-view {
+		margin-left: auto;
+		margin-right: auto;
+		width: 80%;
+	}
+
+	.mat-raised-button {
+		margin-top: 30px;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+	}
+
+	.expand-lists {
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+	}
+
+	.hideList {
+		display: none;
+	}
+}
