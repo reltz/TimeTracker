@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-import { v4 } from 'uuid';
+import { v4 as makeUUid } from 'uuid';
 import { TaskListQuery } from '../@core/session-store/task-list-query';
 import { TaskListService } from '../@core/session-store/task-list.service';
 import { IList } from '../@core/session-store/taskListModel';
@@ -40,7 +40,7 @@ export class SingleViewComponent implements OnInit
 	{
 		this.service.upsert({
 			title: 'Title',
-			id: v4(),
+			id: makeUUid(),
 			content: [],
 		});
 	}

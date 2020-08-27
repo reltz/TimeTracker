@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { startWith, takeWhile } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators';
+import { v4 as makeUUid } from 'uuid';
 import { TaskListService } from './@core/session-store/task-list.service';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
@@ -61,5 +61,14 @@ export class AppComponent implements OnInit, OnDestroy
 	{
 		this.dialog.open(RestoreDialogComponent)
 			.afterClosed();
+	}
+
+	public addNewList(): void
+	{
+		this.service.upsert({
+			title: 'Title',
+			id: makeUUid(),
+			content: [],
+		});
 	}
 }

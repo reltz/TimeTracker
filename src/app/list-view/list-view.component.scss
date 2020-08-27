@@ -36,9 +36,26 @@
 }
 
 @media (max-width: $breakpoint-phone) {
+	mat-card {
+		width: 100%;
+	}
+
+	mat-card-content {
+		width: 100%;
+	}
+
+	mat-form-field {
+		width: 300px;
+	}
+
+	.list-items-wrapper {
+		width: 90%;
+	}
+
 	.mat-icon {
 		margin-right: 0px;
 	}
+
 	.mat-form-field {
 		width: 30vw;
 	}

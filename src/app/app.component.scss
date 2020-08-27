@@ -16,13 +16,21 @@
 	height: 100vh;
 	padding: 25px;
 }
+.mat-card-header {
+	justify-content: space-between;
+}
 
 .header-buttons {
+	margin-right: 0;
 	margin-top: -10px;
 }
 
 .mat-icon {
 	vertical-align: middle;
+}
+
+.mat-raised-button {
+	margin-left: 30px;
 }
 
 @media (max-width: $breakpoint-phone) {

@@ -18,6 +18,10 @@
 					<mat-option value="multi">Multi List View</mat-option>
 				</mat-select>
 			</mat-form-field>
+			<button mat-raised-button (click)="addNewList()">
+				Add new List
+				<mat-icon>add_circle_outline</mat-icon>
+			</button>
 		</div>
 	</mat-card-header>
 
@@ -25,5 +29,4 @@
 		<app-single-view *ngIf="(viewType$ | async) === 'single'"></app-single-view>
 		<app-multi-view *ngIf="(viewType$ | async) === 'multi'"></app-multi-view>
 	</mat-card-content>
-
 </mat-card>
