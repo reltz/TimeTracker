@@ -11,12 +11,12 @@
 				<mat-icon>expand_more</mat-icon>
 			</ng-template>
 		</button>
-		<div [ngClass]="!hideList ? 'hideList' : ''">
+		<div [ngClass]="!hideList ? 'hide-mobile' : ''">
 			<div *ngFor="let list of (allLists$ | async)">
 				<app-list-card-name mat-menu-item [id]=list.id></app-list-card-name>
 			</div>
 		</div>
-		<button mat-raised-button (click)="addNewList()">
+		<button mat-raised-button (click)="addNewList()" class="hide-mobile">
 			Add new List
 			<mat-icon>add_circle_outline</mat-icon>
 		</button>
