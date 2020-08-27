@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy
 	public addNewLog(): void
 	{
 		this.service.upsert({
-			title: 'Title',
+			title: this.utility.getCurrentDateTime(true),
 			id: makeUUid(),
 			content: [],
 			totalTime: '8h',

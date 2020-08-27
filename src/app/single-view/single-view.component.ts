@@ -5,6 +5,7 @@ import { v4 as makeUUid } from 'uuid';
 import { TimeTrackerQuery } from '../@core/session-store/time-tracker-query';
 import { TimeTrackerService } from '../@core/session-store/time-tracker.service';
 import { ILog } from '../@core/session-store/timeTrackerModel';
+import { UtilityService } from '../services/utility.service';
 
 @Component({
 	selector: 'app-single-view',
@@ -18,6 +19,7 @@ export class SingleViewComponent implements OnInit
 	public isThereActive$: Observable<boolean>;
 
 	constructor(
+		protected readonly utility: UtilityService,
 		protected readonly service: TimeTrackerService,
 		protected readonly query: TimeTrackerQuery,
 	) { }
@@ -36,10 +38,10 @@ export class SingleViewComponent implements OnInit
 			).subscribe(id => this.service.setActive(id));
 	}
 
-	public addNewList(): void
+	public addNewLog(): void
 	{
 		this.service.upsert({
-			title: 'Title',
+			title: this.utility.getCurrentDateTime(true),
 			id: makeUUid(),
 			content: [],
 			totalTime: '8h',

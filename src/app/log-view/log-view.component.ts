@@ -24,6 +24,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 	public formGroup: FormGroup;
 	public allContent: FormArray;
 	private isAlive = true;
+	public completed: boolean;
 
 	constructor(
 		private query: TimeTrackerQuery,
@@ -120,7 +121,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 	{
 		const totalTime = this.formGroup.controls.totalTime.value;
 		const totalNumber = this.getMinutesFromString(totalTime);
-		console.warn(this.allContent);
 		const allContentGroups = this.allContent.controls as FormGroup[];
 		let accumulator = 0;
 
@@ -130,15 +130,12 @@ export class LogViewComponent implements OnInit, OnDestroy
 			{
 				accumulator += this.getMinutesFromString(each.controls.time.value);
 			}
-			else
-			{
-				console.warn(each.controls.text.value);
-			}
 		});
 
 		const difference = totalNumber - accumulator;
 		const hoursLeft = Math.ceil(difference / 60);
 		const minutesLeft = difference % 60;
+		if (difference === 0) { this.completed = true; }
 		return !!difference ? `Pending ${hoursLeft}h, ${minutesLeft}m time to log` : '';
 	}
 
@@ -147,7 +144,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 		if (sTime.length === 1)
 		{
 			// tslint:disable-next-line:radix
-			return parseInt(sTime);
+			return Math.ceil(parseInt(sTime)) * 60;
 		}
 		const newString = sTime.toLowerCase();
 		if (newString.includes('h'))
@@ -175,7 +172,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 	{
 		const id = this.formGroup.get('id').value;
 		const content = this.mapFormGroupToListContent(itemId);
-		console.info('deleting : final content: ', content);
 
 		this.svc.update({ id, content });
 	}

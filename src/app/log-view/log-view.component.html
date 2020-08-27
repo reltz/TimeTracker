@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [ngClass]="{'green' : !!completed}">
 	<mat-card-header>
 		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
 		<input matInput [formControl]="formGroup.controls.totalTime">
