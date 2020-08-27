@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, takeWhile, tap, timestamp } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { IContent, IList } from './../@core/session-store/taskListModel';
 export class ListViewComponent implements OnInit, OnDestroy
 {
 	@ViewChild('focusTitle') public title: ElementRef;
+	@Input() public providedList: IList;
 	public currentList$: Observable<IList>;
 	public formGroup: FormGroup;
 	public allContent: FormArray;
@@ -32,35 +33,64 @@ export class ListViewComponent implements OnInit, OnDestroy
 			name: new FormControl(''),
 		});
 
-		this.currentList$ = this.query.activeList$;
-
-		combineLatest(this.currentList$, this.query.isThereActive$).pipe(
-			filter(([cur, active]) => !!cur && !!active),
-			takeWhile(() => this.isAlive),
-			tap(() =>
-			{
-				this.allContent = new FormArray([]);
-			}),
-			map(([cur, active]) => cur),
-		).subscribe(values =>
+		if (!!this.providedList)
 		{
-			if (this.formGroup.controls.id.value === values.id)
+			this.currentList$ = this.query.selectEntity(this.providedList.id);
+			this.currentList$.pipe(
+				tap(() =>
+				{
+					this.allContent = new FormArray([]);
+				}),
+			).subscribe(values =>
 			{
-				this.formGroup.markAsPristine();
-			}
-			else
-			{
-				this.formGroup.controls.id.setValue(values.id);
+				if (this.formGroup.controls.id.value === values.id)
+				{
+					this.formGroup.markAsPristine();
+				}
+				else
+				{
+					this.formGroup.controls.id.setValue(values.id);
+					this.formGroup.controls.name.setValue(values.title);
+				}
+
 				this.formGroup.controls.name.setValue(values.title);
-			}
-
-			this.formGroup.controls.name.setValue(values.title);
-			values.content.forEach(item =>
-			{
-				this.allContent.push(this.createContentControls(item.id, item.text, item.isChecked));
+				values.content.forEach(item =>
+				{
+					this.allContent.push(this.createContentControls(item.id, item.text, item.isChecked));
+				});
 			});
-		});
+		}
+		else
+		{
+			this.currentList$ = this.query.activeList$;
 
+			combineLatest(this.currentList$, this.query.isThereActive$).pipe(
+				filter(([cur, active]) => !!cur && !!active),
+				takeWhile(() => this.isAlive),
+				tap(() =>
+				{
+					this.allContent = new FormArray([]);
+				}),
+				map(([cur, active]) => cur),
+			).subscribe(values =>
+			{
+				if (this.formGroup.controls.id.value === values.id)
+				{
+					this.formGroup.markAsPristine();
+				}
+				else
+				{
+					this.formGroup.controls.id.setValue(values.id);
+					this.formGroup.controls.name.setValue(values.title);
+				}
+
+				this.formGroup.controls.name.setValue(values.title);
+				values.content.forEach(item =>
+				{
+					this.allContent.push(this.createContentControls(item.id, item.text, item.isChecked));
+				});
+			});
+		}
 	}
 
 	public ngOnDestroy()

@@ -1,1 +1,5 @@
-<p>multi-view works!</p>
+<div class="wrapper">
+	<div class="multi-lists" *ngFor="let list of (allLists$ | async)">
+		<app-list-view [providedList]=list></app-list-view>
+	</div>
+</div>

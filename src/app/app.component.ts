@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, takeWhile } from 'rxjs/operators';
 import { TaskListService } from './@core/session-store/task-list.service';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
@@ -11,9 +14,12 @@ import { UtilityService } from './services/utility.service';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit
+export class AppComponent implements OnInit, OnDestroy
 {
 	public title: string;
+	public control: FormControl;
+	public isAlive: boolean = true;
+	public viewType$: Observable<string>;
 
 	constructor(
 		protected readonly service: TaskListService,
@@ -26,8 +32,18 @@ export class AppComponent implements OnInit
 
 	public ngOnInit()
 	{
+		this.control = new FormControl('single');
 		this.service.loadAll();
 		this.title = 'Rod\'s TaskList App';
+
+		this.viewType$ = this.control.valueChanges.pipe(
+			startWith('single'),
+		);
+	}
+
+	public ngOnDestroy()
+	{
+		this.isAlive = false;
 	}
 
 	public download()
