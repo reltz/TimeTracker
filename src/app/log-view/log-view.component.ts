@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, switchMap, take, takeWhile, tap, timestamp } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, map, switchMap, take, takeWhile, tap, timestamp } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TimeTrackerQuery } from '../@core/session-store/time-tracker-query';
 import { TimeTrackerService } from '../@core/session-store/time-tracker.service';
@@ -20,6 +20,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 	@Input() public providedLog: ILog;
 	public currentLog$: Observable<ILog>;
 	private currentLog: ILog;
+	public timeMissing$: Observable<string>;
 	public formGroup: FormGroup;
 	public allContent: FormArray;
 	private isAlive = true;
@@ -37,6 +38,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 			name: new FormControl(''),
 			totalTime: new FormControl('8h', Validators.pattern("^[0-9]*$")),
 		});
+		this.allContent = new FormArray([]);
 
 		if (!!this.providedLog)
 		{
@@ -44,10 +46,11 @@ export class LogViewComponent implements OnInit, OnDestroy
 			this.currentLog$.pipe(
 				takeWhile(() => this.isAlive),
 				filter(current => !!current),
+				delay(200),
 				tap((x) =>
 				{
 					this.currentLog = x;
-					this.allContent = new FormArray([]);
+					this.allContent.reset();
 				}),
 			).subscribe(values =>
 			{
@@ -77,10 +80,11 @@ export class LogViewComponent implements OnInit, OnDestroy
 				filter(([cur, active]) => !!cur && !!active),
 				takeWhile(() => this.isAlive),
 				map(([cur, active]) => cur),
+				delay(200),
 				tap(x =>
 				{
 					this.currentLog = x;
-					this.allContent = new FormArray([]);
+					this.allContent.reset();
 				}),
 			).subscribe(values =>
 			{
@@ -101,11 +105,64 @@ export class LogViewComponent implements OnInit, OnDestroy
 				});
 			});
 		}
+
+		this.timeMissing$ = combineLatest(this.formGroup.valueChanges, this.allContent.valueChanges).pipe(
+			map(([x, y]) => this.calculateTimeLeft()),
+		);
 	}
 
 	public ngOnDestroy()
 	{
 		this.isAlive = false;
+	}
+
+	public calculateTimeLeft()
+	{
+		const totalTime = this.formGroup.controls.totalTime.value;
+		const totalNumber = this.getMinutesFromString(totalTime);
+		console.warn(this.allContent);
+		const allContentGroups = this.allContent.controls as FormGroup[];
+		let accumulator = 0;
+
+		allContentGroups.forEach(each =>
+		{
+			if (!!each.controls.isChecked.value)
+			{
+				accumulator += this.getMinutesFromString(each.controls.time.value);
+			}
+			else
+			{
+				console.warn(each.controls.text.value);
+			}
+		});
+
+		const difference = totalNumber - accumulator;
+		const hoursLeft = Math.ceil(difference / 60);
+		const minutesLeft = difference % 60;
+		return !!difference ? `Pending ${hoursLeft}h, ${minutesLeft}m time to log` : '';
+	}
+
+	private getMinutesFromString(sTime: string): number
+	{
+		if (sTime.length === 1)
+		{
+			// tslint:disable-next-line:radix
+			return parseInt(sTime);
+		}
+		const newString = sTime.toLowerCase();
+		if (newString.includes('h'))
+		{
+			const h = newString.split('h');
+			// tslint:disable-next-line:radix
+			const hour = parseInt(h[0]);
+			// tslint:disable-next-line:radix
+			const minutes = h[1] !== '' ? parseInt(h[1].split('m')[0].trim()) : 0;
+			return (hour * 60) + minutes;
+		} else if (newString.includes('m'))
+		{
+			// tslint:disable-next-line:radix
+			return parseInt(newString.split('m')[0]);
+		}
 	}
 
 	public addItem(): void

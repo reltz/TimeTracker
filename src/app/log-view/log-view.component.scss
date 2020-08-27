@@ -41,6 +41,10 @@
 	margin-right: 10px;
 }
 
+.bold {
+	font-weight: 700;
+}
+
 @media (max-width: $breakpoint-phone) {
 	mat-card {
 		width: 100%;
