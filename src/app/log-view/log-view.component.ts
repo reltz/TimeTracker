@@ -106,7 +106,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 		const hoursLeft = Math.floor(difference / 60);
 		const minutesLeft = difference % 60;
 		if (difference === 0) { this.completed = true; }
-		return !!difference ? `Pending ${hoursLeft}h, ${minutesLeft}m time to log` : 'Done!';
+		return !!difference ? `Pending: ${hoursLeft}h : ${minutesLeft}m` : 'Done!';
 	}
 
 	private getMinutesFromString(sTime: string): number
