@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { combineLatest, Observable } from 'rxjs';
-import { delay, distinctUntilChanged, filter, map, pairwise, switchMap, take, takeWhile, tap, timestamp } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, map, pairwise, startWith, switchMap, take, takeWhile, tap, timestamp } from 'rxjs/operators';
 import { v4 } from 'uuid';
 import { TimeTrackerQuery } from '../@core/session-store/time-tracker-query';
 import { TimeTrackerService } from '../@core/session-store/time-tracker.service';
@@ -41,10 +41,11 @@ export class LogViewComponent implements OnInit, OnDestroy
 
 		this.currentLog$ = this.query.activeLog$;
 
-		combineLatest(this.currentLog$, this.query.isThereActive$).pipe(
-			filter(([cur, active]) => !!cur && !!active),
+		this.currentLog$.pipe(
+			filter(cur => !!cur),
+			startWith(null),
+			tap(x => console.warn(x)),
 			takeWhile(() => this.isAlive),
-			map(([cur, active]) => cur),
 			pairwise(),
 		).subscribe(values =>
 		{
@@ -65,12 +66,12 @@ export class LogViewComponent implements OnInit, OnDestroy
 		}
 		else
 		{
+			console.warn('title is ', currValues.title);
 			this.formGroup.controls.id.setValue(currValues.id);
 			this.formGroup.controls.name.setValue(currValues.title);
 			this.formGroup.controls.totalTime.setValue(currValues.totalTime);
 		}
 
-		this.formGroup.controls.name.setValue(currValues.title);
 		if (this.allContent.length === 0 || prevCur[0].id !== prevCur[1].id)
 		{
 			this.allContent.reset();
