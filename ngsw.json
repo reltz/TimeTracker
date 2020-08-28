@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1598626747673,
+  "timestamp": 1598629649653,
   "index": "/TimeTracker/index.html",
   "assetGroups": [
     {
@@ -43,15 +43,15 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/TimeTracker/assets/icons/icon-128x128.png": "a60cc2ef8e1974739b12ce5fe84735b62a14ca41",
-    "/TimeTracker/assets/icons/icon-144x144.png": "98d2975cb675318ce1336e337d52860ecd51bc7b",
-    "/TimeTracker/assets/icons/icon-152x152.png": "ef6212f3db188654080c98f9f1b719b74fa5e8db",
-    "/TimeTracker/assets/icons/icon-192x192.png": "0094e6bd42025d94cbc2cdd83f3634b74396b319",
-    "/TimeTracker/assets/icons/icon-384x384.png": "61a6b24a8ee061538a69c76bcb55d43f5a738a14",
-    "/TimeTracker/assets/icons/icon-512x512.png": "32f95637113d51678530e708294a18f0c9c223b7",
-    "/TimeTracker/assets/icons/icon-72x72.png": "3120891cf58efc067d6306b2bb8594dad050606e",
-    "/TimeTracker/assets/icons/icon-96x96.png": "9442f21b230b9a06f68e50851928e2e645dc6a85",
-    "/TimeTracker/favicon.ico": "464f7490bb3909d2f4818391a5a2c2c87a6f55f0",
+    "/TimeTracker/assets/icons/icon-128x128.png": "39a614bd14e8677d6639c2246e922b8476b0d93e",
+    "/TimeTracker/assets/icons/icon-144x144.png": "a210f578c6f1036e7a698a84cdf7023b552c687e",
+    "/TimeTracker/assets/icons/icon-152x152.png": "6eaf333d816a153e0dc41dbdba3357d3547749ec",
+    "/TimeTracker/assets/icons/icon-192x192.png": "74f548a65343e7c1d828ce05efd1089385ff40f9",
+    "/TimeTracker/assets/icons/icon-384x384.png": "22a76a3024c17b82b16c1d0160f188d2b092e150",
+    "/TimeTracker/assets/icons/icon-512x512.png": "35678d60ec5448c21bd2a5217c7dddd1955e5d05",
+    "/TimeTracker/assets/icons/icon-72x72.png": "0db085f22ae5196a87ee780530d27d033f661871",
+    "/TimeTracker/assets/icons/icon-96x96.png": "d9b78a369f3c61f7986c47da0ea1cfa95d78c1e5",
+    "/TimeTracker/favicon.ico": "d1aa520b8a26aa7207b8387af8f649fa2df654d4",
     "/TimeTracker/index.html": "612cdc9786fddbbbd862a3fe3c7dc6670f94f291",
     "/TimeTracker/main.c677375a9d538d5cb1da.js": "06b8ed7e3a4ba8b205331792724e9e3244a44102",
     "/TimeTracker/manifest.webmanifest": "25c38260ed5975fc3149adc166f00d7691c3acf4",
