@@ -103,7 +103,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 		});
 
 		const difference = totalNumber - accumulator;
-		const hoursLeft = Math.ceil(difference / 60);
+		const hoursLeft = Math.floor(difference / 60);
 		const minutesLeft = difference % 60;
 		if (difference === 0) { this.completed = true; }
 		return !!difference ? `Pending ${hoursLeft}h, ${minutesLeft}m time to log` : 'Done!';
@@ -127,6 +127,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 			return (hour * 60) + minutes;
 		} else if (newString.includes('m'))
 		{
+			console.warn(newString.split('m')[0]);
 			// tslint:disable-next-line:radix
 			return parseInt(newString.split('m')[0]);
 		}
