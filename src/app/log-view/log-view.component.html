@@ -1,4 +1,4 @@
-<mat-card [ngClass]="{'green' : !!completed}">
+<mat-card>
 	<mat-card-header>
 		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
 		<input matInput [formControl]="formGroup.controls.totalTime">
@@ -42,7 +42,7 @@
 		</div>
 
 	</mat-card-content>
-	<mat-card-actions>
+	<mat-card-actions class="footer">
 		<button mat-raised-button (click)="addItem()">
 			<span class="hide-in-mobile">Add item</span>
 			<mat-icon>add_circle_outline</mat-icon>
@@ -51,6 +51,6 @@
 			<span class="hide-in-mobile">Save</span>
 			<mat-icon>save</mat-icon>
 		</button>
-		<span class="bold">{{timeMissing$ | async}}</span>
+		<h2 class="bold">{{timeMissing$ | async}}</h2>
 	</mat-card-actions>
 </mat-card>

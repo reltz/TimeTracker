@@ -23,7 +23,6 @@ import { AppComponent } from './app.component';
 import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
 import { LogCardNameComponent } from './log-card-name/log-card-name.component';
 import { LogViewComponent } from './log-view/log-view.component';
-import { MultiViewComponent } from './multi-view/multi-view.component';
 import { RestoreDialogComponent } from './restore-dialog/restore-dialog.component';
 import { BackupRestoreService } from './services/backup-restore.service';
 import { UtilityService } from './services/utility.service';
@@ -50,7 +49,6 @@ const matModules = [
 		RestoreDialogComponent,
 		ConfirmDeleteDialogComponent,
 		SingleViewComponent,
-		MultiViewComponent,
 	],
 	imports: [
 		BrowserModule,

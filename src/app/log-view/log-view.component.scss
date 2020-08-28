@@ -10,9 +10,7 @@
 .mat-checkbox {
 	margin-right: 20px;
 }
-.green {
-	background-color: $app-success;
-}
+
 .mat-input {
 	width: 80%;
 }
@@ -44,7 +42,12 @@
 }
 
 .bold {
-	font-weight: 700;
+	font-weight: 500;
+	margin-top: 10px;
+}
+
+.footer {
+	display: flex;
 }
 
 @media (max-width: $breakpoint-phone) {

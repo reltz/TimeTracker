@@ -12,12 +12,6 @@
 			<button mat-icon-button (click)="this.handleRestore()" title="Restore app from text file">
 				<mat-icon>upgrade</mat-icon>
 			</button>
-			<mat-form-field>
-				<mat-select [formControl]="control">
-					<mat-option value="single">Single View</mat-option>
-					<mat-option value="multi">Multi View</mat-option>
-				</mat-select>
-			</mat-form-field>
 			<button mat-raised-button (click)="addNewLog()">
 				Add new log entry
 				<mat-icon>add_circle_outline</mat-icon>
@@ -26,7 +20,6 @@
 	</mat-card-header>
 
 	<mat-card-content>
-		<app-single-view *ngIf="(viewType$ | async) === 'single'"></app-single-view>
-		<app-multi-view *ngIf="(viewType$ | async) === 'multi'"></app-multi-view>
+		<app-single-view></app-single-view>
 	</mat-card-content>
 </mat-card>

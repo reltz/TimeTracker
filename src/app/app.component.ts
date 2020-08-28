@@ -17,9 +17,7 @@ import { UtilityService } from './services/utility.service';
 export class AppComponent implements OnInit, OnDestroy
 {
 	public title: string;
-	public control: FormControl;
 	public isAlive: boolean = true;
-	public viewType$: Observable<string>;
 
 	constructor(
 		protected readonly service: TimeTrackerService,
@@ -32,13 +30,8 @@ export class AppComponent implements OnInit, OnDestroy
 
 	public ngOnInit()
 	{
-		this.control = new FormControl('single');
 		this.service.loadAll();
 		this.title = 'Time Tracker';
-
-		this.viewType$ = this.control.valueChanges.pipe(
-			startWith('single'),
-		);
 	}
 
 	public ngOnDestroy()
