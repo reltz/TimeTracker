@@ -7,7 +7,7 @@ export class UtilityService
 {
 	public getCurrentDateTime(onlyDate: boolean = false): string
 	{
-		const week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+		const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 		const today = new Date();
 		const weekDay = today.getDay();
 		const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
