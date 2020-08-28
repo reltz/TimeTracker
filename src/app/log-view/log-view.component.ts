@@ -44,7 +44,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 		this.currentLog$.pipe(
 			filter(cur => !!cur),
 			startWith(null),
-			tap(x => console.warn(x)),
 			takeWhile(() => this.isAlive),
 			pairwise(),
 		).subscribe(values =>
@@ -66,7 +65,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 		}
 		else
 		{
-			console.warn('title is ', currValues.title);
 			this.formGroup.controls.id.setValue(currValues.id);
 			this.formGroup.controls.name.setValue(currValues.title);
 			this.formGroup.controls.totalTime.setValue(currValues.totalTime);
