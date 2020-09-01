@@ -18,6 +18,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 {
 	@ViewChild('focusTitle') public title: ElementRef;
 	public currentLog$: Observable<ILog>;
+	public currentLog: ILog;
 	public timeMissing$: Observable<string>;
 	public formGroup: FormGroup;
 	public allContent: FormArray;
@@ -37,48 +38,68 @@ export class LogViewComponent implements OnInit, OnDestroy
 			name: new FormControl(''),
 			totalTime: new FormControl('8h', Validators.pattern("^[0-9]*$")),
 		});
-		this.allContent = new FormArray([]);
 
 		this.currentLog$ = this.query.activeLog$;
 
-		this.currentLog$.pipe(
-			filter(cur => !!cur),
-			startWith(null),
+		combineLatest(this.currentLog$, this.query.isThereActive$).pipe(
+			filter(([cur, active]) => !!cur && !!active),
 			takeWhile(() => this.isAlive),
-			pairwise(),
+			map(([cur, active]) => cur),
+			tap(x =>
+			{
+				this.currentLog = x;
+				this.allContent = new FormArray([]);
+			}),
 		).subscribe(values =>
 		{
-			this.inti(values);
-		});
+			if (this.formGroup.controls.id.value === values.id)
+			{
+				this.formGroup.markAsPristine();
+			}
+			else
+			{
+				this.formGroup.controls.id.setValue(values.id);
+				this.formGroup.controls.name.setValue(values.title);
+			}
 
-		this.timeMissing$ = combineLatest(this.formGroup.valueChanges, this.allContent.valueChanges).pipe(
-			map(([x, y]) => this.calculateTimeLeft()),
-		);
-	}
-
-	private inti(prevCur: ILog[])
-	{
-		const currValues = prevCur[1];
-		if (this.formGroup.controls.id.value === currValues.id)
-		{
-			this.formGroup.markAsPristine();
-		}
-		else
-		{
-			this.formGroup.controls.id.setValue(currValues.id);
-			this.formGroup.controls.name.setValue(currValues.title);
-			this.formGroup.controls.totalTime.setValue(currValues.totalTime);
-		}
-
-		if (this.allContent.length === 0 || prevCur[0].id !== prevCur[1].id)
-		{
-			this.allContent.reset();
-			currValues.content.forEach(item =>
+			this.formGroup.controls.name.setValue(values.title);
+			values.content.forEach(item =>
 			{
 				this.allContent.push(this.createContentControls(item.id, item.text, item.time, item.isChecked));
 			});
-		}
+
+			const formChanges$ = this.formGroup.valueChanges.pipe(startWith(''));
+			const allContent$ = this.allContent.valueChanges.pipe(startWith(''));
+			this.timeMissing$ = combineLatest(formChanges$, allContent$).pipe(
+				map(([x, y]) => this.calculateTimeLeft()),
+			);
+		});
+
 	}
+
+	// private init(prevCur: ILog[])
+	// {
+	// 	const currValues = prevCur[1];
+	// 	if (this.formGroup.controls.id.value === currValues.id)
+	// 	{
+	// 		this.formGroup.markAsPristine();
+	// 	}
+	// 	else
+	// 	{
+	// 		this.formGroup.controls.id.setValue(currValues.id);
+	// 		this.formGroup.controls.name.setValue(currValues.title);
+	// 		this.formGroup.controls.totalTime.setValue(currValues.totalTime);
+	// 	}
+
+	// 	if (this.allContent.length === 0 || prevCur[0].id !== prevCur[1].id)
+	// 	{
+	// 		this.allContent.reset();
+	// 		currValues.content.forEach(item =>
+	// 		{
+	// 			this.allContent.push(this.createContentControls(item.id, item.text, item.time, item.isChecked));
+	// 		});
+	// 	}
+	// }
 
 	public ngOnDestroy()
 	{
