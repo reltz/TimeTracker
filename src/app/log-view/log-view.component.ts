@@ -60,6 +60,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 			{
 				this.formGroup.controls.id.setValue(values.id);
 				this.formGroup.controls.name.setValue(values.title);
+				this.formGroup.controls.totalTime.setValue(values.totalTime);
 			}
 
 			this.formGroup.controls.name.setValue(values.title);
