@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1599002751259,
+  "timestamp": 1599051510330,
   "index": "/TimeTracker/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/TimeTracker/favicon.ico",
         "/TimeTracker/index.html",
-        "/TimeTracker/main.e55b328ae3907141c3dc.js",
+        "/TimeTracker/main.4dcdf8075f3e0321bfff.js",
         "/TimeTracker/manifest.webmanifest",
         "/TimeTracker/polyfills.a4021de53358bb0fec14.js",
         "/TimeTracker/runtime.e227d1a0e31cbccbf8ec.js",
@@ -52,8 +52,8 @@
     "/TimeTracker/assets/icons/icon-72x72.png": "0db085f22ae5196a87ee780530d27d033f661871",
     "/TimeTracker/assets/icons/icon-96x96.png": "d9b78a369f3c61f7986c47da0ea1cfa95d78c1e5",
     "/TimeTracker/favicon.ico": "d1aa520b8a26aa7207b8387af8f649fa2df654d4",
-    "/TimeTracker/index.html": "9d689f46fb5fa50de8538b7b49d52daaf8a28209",
-    "/TimeTracker/main.e55b328ae3907141c3dc.js": "2a01d6e96cd4f060a3763221f1b44e59eda69cce",
+    "/TimeTracker/index.html": "dddbf4b6cbaed6fea0e0ffa767be8694db913518",
+    "/TimeTracker/main.4dcdf8075f3e0321bfff.js": "cc37aec0310ad93277834c3c1f875fc6a0d007f1",
     "/TimeTracker/manifest.webmanifest": "25c38260ed5975fc3149adc166f00d7691c3acf4",
     "/TimeTracker/polyfills.a4021de53358bb0fec14.js": "b47435a9ef2a4829f2f9dfd35599bde3614981b1",
     "/TimeTracker/runtime.e227d1a0e31cbccbf8ec.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
