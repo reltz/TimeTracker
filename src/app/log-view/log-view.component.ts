@@ -149,7 +149,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 			return (hour * 60) + minutes;
 		} else if (newString.includes('m'))
 		{
-			console.warn(newString.split('m')[0]);
 			// tslint:disable-next-line:radix
 			return parseInt(newString.split('m')[0]);
 		}
