@@ -45,6 +45,7 @@ export class MockAdapter
 		const allDb = this.getLocalStorageObject();
 
 		if (log.title) { allDb[log.id].title = log.title; }
+		if (log.totalTime) { allDb[log.id].totalTime = log.totalTime; }
 		if (log.content) { allDb[log.id].content = log.content; }
 		this.mapAndSetLocalStorage(allDb);
 	}
