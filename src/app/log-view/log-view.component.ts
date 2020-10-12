@@ -41,7 +41,7 @@ export class LogViewComponent implements OnInit, OnDestroy
 
 		this.currentLog$ = this.query.activeLog$;
 
-		combineLatest(this.currentLog$, this.query.isThereActive$).pipe(
+		combineLatest([this.currentLog$, this.query.isThereActive$]).pipe(
 			filter(([cur, active]) => !!cur && !!active),
 			takeWhile(() => this.isAlive),
 			map(([cur, active]) => cur),
@@ -78,30 +78,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 
 	}
 
-	// private init(prevCur: ILog[])
-	// {
-	// 	const currValues = prevCur[1];
-	// 	if (this.formGroup.controls.id.value === currValues.id)
-	// 	{
-	// 		this.formGroup.markAsPristine();
-	// 	}
-	// 	else
-	// 	{
-	// 		this.formGroup.controls.id.setValue(currValues.id);
-	// 		this.formGroup.controls.name.setValue(currValues.title);
-	// 		this.formGroup.controls.totalTime.setValue(currValues.totalTime);
-	// 	}
-
-	// 	if (this.allContent.length === 0 || prevCur[0].id !== prevCur[1].id)
-	// 	{
-	// 		this.allContent.reset();
-	// 		currValues.content.forEach(item =>
-	// 		{
-	// 			this.allContent.push(this.createContentControls(item.id, item.text, item.time, item.isChecked));
-	// 		});
-	// 	}
-	// }
-
 	public ngOnDestroy()
 	{
 		this.isAlive = false;
@@ -117,7 +93,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 
 		allContentGroups.forEach(each =>
 		{
-			// if (!!each.controls.isChecked.value)
 			if (each.controls.time.value)
 			{
 				accumulator += this.getMinutesFromString(each.controls.time.value);
@@ -135,22 +110,19 @@ export class LogViewComponent implements OnInit, OnDestroy
 	{
 		if (sTime.length === 1)
 		{
-			// tslint:disable-next-line:radix
-			return Math.ceil(parseInt(sTime)) * 60;
+			return Math.ceil(parseInt(sTime, 10)) * 60;
 		}
 		const newString = sTime.toLowerCase();
 		if (newString.includes('h'))
 		{
 			const h = newString.split('h');
-			// tslint:disable-next-line:radix
-			const hour = parseInt(h[0]);
-			// tslint:disable-next-line:radix
-			const minutes = h[1] !== '' ? parseInt(h[1].split('m')[0].trim()) : 0;
+			const hour = parseInt(h[0], 10);
+			const minutes = h[1] !== '' ? parseInt(h[1].split('m')[0].trim(), 10) : 0;
 			return (hour * 60) + minutes;
-		} else if (newString.includes('m'))
+		}
+		else if (newString.includes('m'))
 		{
-			// tslint:disable-next-line:radix
-			return parseInt(newString.split('m')[0]);
+			return parseInt(newString.split('m')[0], 10);
 		}
 	}
 
