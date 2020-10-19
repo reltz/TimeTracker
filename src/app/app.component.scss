@@ -11,12 +11,14 @@ mat-form-field {
 
 .title {
 	font-size: 2em;
-	color: $app-accent;
+	// color: $app-accent;
+	color: white;
 }
 
 .app {
 	margin: 40px;
-	background-color: $app-primary;
+	background-color: rgba(0, 0, 0, 0);
+	color: white;
 	height: 100vh;
 	padding: 25px;
 }
