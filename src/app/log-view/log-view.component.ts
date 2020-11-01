@@ -100,30 +100,46 @@ export class LogViewComponent implements OnInit, OnDestroy
 		});
 
 		const difference = totalNumber - accumulator;
-		const hoursLeft = Math.floor(difference / 60);
+		const hoursLeft = difference >= 0
+			? Math.floor(difference / 60)
+			: Math.ceil(difference / 60);
 		const minutesLeft = difference % 60;
 		if (difference === 0) { this.completed = true; }
-		return !!difference ? `Pending: ${hoursLeft}h : ${minutesLeft}m` : 'Done!';
+
+		let result;
+		if (difference === 0)
+		{
+			result = 'Done!';
+		}
+		else if (difference > 0 || difference < 0)
+		{
+			result = `Pending: ${hoursLeft}h : ${minutesLeft}m`;
+		}
+		else
+		{
+			result = 'Invalid value.';
+		}
+		return result;
 	}
 
 	private getMinutesFromString(sTime: string): number
 	{
 		if (sTime.length === 1)
 		{
-			return Math.ceil(parseInt(sTime)) * 60;
+			return Math.ceil(parseInt(sTime, 10)) * 60;
 		}
 		const newString = sTime.toLowerCase();
 		if (newString.includes('h'))
 		{
 			const h = newString.split('h');
-			const hour = parseInt(h[0]);
-			const minutes = h[1] !== '' ? parseInt(h[1].split('m')[0].trim()) : 0;
+			const hour = parseInt(h[0], 10);
+			const minutes = h[1] !== '' ? parseInt(h[1].split('m')[0].trim(), 10) : 0;
 			return (hour * 60) + minutes;
 		}
 		else if (newString.includes('m'))
 		{
 			console.warn(newString.split('m')[0]);
-			return parseInt(newString.split('m')[0]);
+			return parseInt(newString.split('m')[0], 10);
 		}
 	}
 
