@@ -138,7 +138,6 @@ export class LogViewComponent implements OnInit, OnDestroy
 		}
 		else if (newString.includes('m'))
 		{
-			console.warn(newString.split('m')[0]);
 			return parseInt(newString.split('m')[0], 10);
 		}
 	}
