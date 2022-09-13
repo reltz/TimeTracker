@@ -1,7 +1,7 @@
 <mat-card>
-	<mat-card-header>
-		<input matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
-		<input matInput [formControl]="formGroup.controls.totalTime">
+	<mat-card-header class="header-1">
+		<input id="name" matInput #focusTitle (focus)="selectAllText()" [formControl]="formGroup.controls.name">
+		<input matInput id="total-time" [formControl]="formGroup.controls.totalTime">
 		<button mat-icon-button (click)="deleteLog()">
 			<mat-icon>delete</mat-icon>
 		</button>

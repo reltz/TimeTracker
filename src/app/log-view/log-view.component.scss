@@ -20,14 +20,15 @@
 }
 
 .two-fields {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
+	// display: flex;
+	width: 90%;
+	justify-content: safe;
 
 	& mat-form-field {
-		width: 48%;
+		width: 35%;
 	}
 }
+
 .mat-form-field-infix {
 	border-top: 0;
 }
@@ -53,6 +54,21 @@
 @media (max-width: $breakpoint-phone) {
 	mat-card {
 		width: 100%;
+		margin: 0;
+	}
+
+	.two-fields {
+		// display: flex;
+		width: 90%;
+		justify-content: safe;
+
+		& mat-form-field {
+			width: 45%;
+		}
+	}
+
+	.mat-card-header {
+		font-size: 1.1em;
 	}
 
 	mat-card-content {
@@ -61,6 +77,24 @@
 
 	mat-form-field {
 		width: 300px;
+	}
+
+	::ng-deep .mat-card-header-text {
+		margin: 0;
+	}
+
+	#name {
+		margin-right: 10px;
+		width: 40%;
+	}
+
+	#total-time {
+		width: 20%;
+		margin-right: 0;
+	}
+
+	.two-fields {
+		margin-right: 0;
 	}
 
 	.mat-icon {
@@ -73,11 +107,22 @@
 	}
 
 	.mat-raised-button {
-		width: 10px;
+		width: 40px;
+		height: 40px;
 		overflow: hidden;
 	}
 
 	.hide-in-mobile {
 		display: none;
 	}
+
+	.bold {
+		font-size: 1.2em;
+	}
+
+	.log-items-wrapper {
+		display: flexbox;
+		align-items: center;
+	}
+
 }

@@ -29,6 +29,7 @@
 }
 
 @media (max-width: $breakpoint-phone) {
+
 	.wrapper {
 		display: block;
 	}
@@ -43,9 +44,9 @@
 	}
 
 	.log-view {
-		margin-left: auto;
-		margin-right: auto;
-		width: 80%;
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
 	}
 
 	.mat-raised-button {
